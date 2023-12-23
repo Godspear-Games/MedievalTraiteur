@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -58,16 +59,177 @@ public class CameraController : MonoBehaviour
     private void Awake()
     {
         cameraActions = new CameraControlActions();
-        cameraTransform = this.GetComponentInChildren<Camera>().transform; 
+        cameraTransform = this.GetComponentInChildren<Camera>().transform;
     }
 
     private void OnEnable()
     {
+        zoomHeight = cameraTransform.localScale.y;
+        cameraTransform.LookAt(this.transform);
+
         lastPosition = this.transform.position;
         movement = cameraActions.Camera.Movement;
-        cameraActions.Camera.Enable(); 
+        cameraActions.Camera.RotateCamera.performed += RotateCamera;
+        cameraActions.Camera.ZoomCamera.performed += ZoomCamera;
+        cameraActions.Camera.Enable();
     }
 
+    private void OnDisable()
+    {
+        cameraActions.Camera.RotateCamera.performed -= RotateCamera;
+        cameraActions.Camera.ZoomCamera.performed -= ZoomCamera;
+        cameraActions.Disable();
+    }
+
+    private void Update()
+    {
+        GetKeyboardMovement();
+
+        if (useScreenEdge)
+        {
+            CheckMouseAtScreenEdge();
+        }
+        DragCamera(); 
+
+        UpdateVelocity();
+        UpdateCameraPosition();
+        UpdateBasePosition();
+    }
+
+    private void UpdateVelocity()
+    {
+        horizontVelocity = (this.transform.position - lastPosition) / Time.deltaTime;
+        horizontVelocity.y = 0;
+        lastPosition = this.transform.position;
+    }
+
+    private void GetKeyboardMovement()
+    {
+        Vector3 inputValue = movement.ReadValue<Vector2>().x * GetCameraRight() + movement.ReadValue<Vector2>().y * GetCameraForward();
+        inputValue = inputValue.normalized;
+
+        if (inputValue.sqrMagnitude > 0.1f)
+        {
+            targetPosition += inputValue;
+        }
+    }
+
+    private Vector3 GetCameraRight()
+    {
+        Vector3 right = cameraTransform.right;
+        right.y = 0;
+        return right;
+    }
+
+    private Vector3 GetCameraForward()
+    {
+        Vector3 forward = cameraTransform.forward;
+        forward.y = 0;
+        return forward;
+    }
+
+    private void UpdateBasePosition()
+    {
+        if (targetPosition.sqrMagnitude > 0.1f)
+        {
+            speed = Mathf.Lerp(speed, maxSpeed, Time.deltaTime * acceleration);
+            transform.position += targetPosition * speed * Time.deltaTime;
+        }
+        else
+        {
+            horizontVelocity = Vector3.Lerp(horizontVelocity, Vector3.zero, Time.deltaTime * damping);
+            transform.position += horizontVelocity * Time.deltaTime;
+        }
+
+        targetPosition = Vector3.zero;
+    }
+
+    private void RotateCamera(InputAction.CallbackContext inputValue)
+    {
+        if (!Mouse.current.middleButton.isPressed)
+        {
+            return;
+        }
+
+        float value = inputValue.ReadValue<Vector2>().x;
+        transform.rotation = Quaternion.Euler(0f, value * maxRotationSpeed + transform.rotation.eulerAngles.y, 0f);
+    }
+
+    private void ZoomCamera(InputAction.CallbackContext inputvalue)
+    {
+        float value = -inputvalue.ReadValue<Vector2>().y / 100f;
+
+        if (Mathf.Abs(value) > 0.1f)
+        {
+            zoomHeight = cameraTransform.localPosition.y + value * stepSize;
+            if (zoomHeight < minHeight)
+            {
+                zoomHeight = minHeight;
+            }
+            else if (zoomHeight > maxHeight)
+            {
+                zoomHeight = maxHeight;
+            }
+        }
+    }
+
+    private void UpdateCameraPosition()
+    {
+        Vector3 zoomTarget = new Vector3(cameraTransform.localPosition.x, zoomHeight, cameraTransform.localPosition.z);
+        zoomTarget -= zoomSpeed * (zoomHeight - cameraTransform.localPosition.y) * Vector3.forward;
+
+        cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, zoomTarget, Time.deltaTime * zoomDampening);
+        cameraTransform.LookAt(this.transform);
+    }
+
+    private void CheckMouseAtScreenEdge()
+    {
+        Vector2 mousePosition = Mouse.current.position.ReadValue();
+        Vector3 moveDirection = Vector3.zero;
+
+        if (mousePosition.x < edgeTolerance * Screen.width)
+        {
+            moveDirection += -GetCameraRight();
+        }
+        else if (mousePosition.x > (1f - edgeTolerance) * Screen.width)
+        {
+            moveDirection += GetCameraRight();
+        }
 
 
+        if (mousePosition.y < edgeTolerance * Screen.height)
+        {
+            moveDirection += -GetCameraForward();
+        }
+        else if (mousePosition.y > (1f - edgeTolerance) * Screen.height)
+        {
+            moveDirection += GetCameraForward();
+        }
+
+        targetPosition += moveDirection;
+    }
+
+    private void DragCamera()
+    {
+        if (!Mouse.current.rightButton.isPressed)
+        {
+            return;
+        }
+
+        Plane plane = new Plane(Vector3.up, Vector3.zero);
+        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+
+        if (plane.Raycast(ray, out float distance))
+        {
+            if (Mouse.current.rightButton.wasPressedThisFrame)
+            {
+                startDrag = ray.GetPoint(distance);
+            }
+            else
+            {
+                targetPosition += startDrag - ray.GetPoint(distance);
+            }
+
+        }
+    } 
 }
