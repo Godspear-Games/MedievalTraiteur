@@ -474,7 +474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Version: 3
-  m_UsePipelineSettings: 1
+  m_UsePipelineSettings: 0
   m_AdditionalLightsShadowResolutionTier: 2
   m_LightLayerMask: 1
   m_RenderingLayers: 1
@@ -734,9 +734,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e91d26f2e17084c5488a6d6215a6f098, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _width: 80
-  _height: 80
-  _availableTiles: 5
+  _width: 60
+  _height: 50
+  _availableTiles: 3
   _lockedTile: {fileID: 11400000, guid: 76e11878f49234f52a76eb33bbdbe33d, type: 2}
   _unlockedTile: {fileID: 11400000, guid: 70181f1208ba54e0091fe39fb77185b4, type: 2}
   _palaceTile: {fileID: 11400000, guid: 3167a75bb9880467f813631e6c1276b7, type: 2}

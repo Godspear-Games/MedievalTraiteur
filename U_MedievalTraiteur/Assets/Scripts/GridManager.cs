@@ -53,7 +53,7 @@ public class GridManager : MonoBehaviour
         Destroy(_tiles[tileposition].gameObject);
         _tiles[tileposition] = Instantiate(_palaceTile.TilePrefab, new Vector3(tileposition.x, 0, tileposition.y), Quaternion.identity);
         
-        for (int i = 0; i < _availableTiles-1; i++)
+        for (int i = 0; i < _availableTiles; i++)
         {
             tileposition = GetSurroundingTiles(new Vector2(_width / 2, _height / 2))[i];
             Destroy(_tiles[tileposition].gameObject);
