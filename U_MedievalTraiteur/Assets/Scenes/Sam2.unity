@@ -731,6 +731,7 @@ GameObject:
   - component: {fileID: 1015346014}
   - component: {fileID: 1015346013}
   - component: {fileID: 1015346017}
+  - component: {fileID: 1015346018}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -840,6 +841,19 @@ MonoBehaviour:
   _tileUIPrefab: {fileID: 6443099984093917904, guid: e424cfc6315904f3d8f4e6ad6ec09e10,
     type: 3}
   _tileUIParent: {fileID: 508429202}
+--- !u!114 &1015346018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1015346012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5db2ab178414327418d8ffcf3c3aa6af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 427392419}
 --- !u!1 &2083730083
 GameObject:
   m_ObjectHideFlags: 0
@@ -875,6 +889,7 @@ MonoBehaviour:
   _lockedTile: {fileID: 11400000, guid: 76e11878f49234f52a76eb33bbdbe33d, type: 2}
   _unlockedTile: {fileID: 11400000, guid: 70181f1208ba54e0091fe39fb77185b4, type: 2}
   _palaceTile: {fileID: 11400000, guid: 3167a75bb9880467f813631e6c1276b7, type: 2}
+  _fieldTile: {fileID: 11400000, guid: 8f1898f8664064453aeaf4cee31559ea, type: 2}
 --- !u!4 &2083730085
 Transform:
   m_ObjectHideFlags: 0

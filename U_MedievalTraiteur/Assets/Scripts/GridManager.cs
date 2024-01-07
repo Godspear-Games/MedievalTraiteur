@@ -13,6 +13,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private TileScriptableObject _lockedTile;
     [SerializeField] private TileScriptableObject _unlockedTile;
     [SerializeField] private TileScriptableObject _palaceTile;
+    [SerializeField] private TileScriptableObject _fieldTile;
     private Dictionary<Vector2, Tile> _tiles;
     
     private Vector2 _selectedTilePosition;
@@ -96,18 +97,24 @@ public class GridManager : MonoBehaviour
     {
         SetTileType(_selectedTilePosition, tileScriptableObject);
     }
-    
+
     public void SetTileType(Vector2 position, TileScriptableObject tileScriptableObject)
     {
         if (position == Vector2.zero)
         {
             return;
         }
-        
+
         if (_tiles.TryGetValue(position, out Tile tile))
         {
             Destroy(tile.gameObject);
             _tiles[position] = Instantiate(tileScriptableObject.TilePrefab, new Vector3(position.x, 0, position.y), Quaternion.identity);
+
+            // Increment the score when a tile is successfully placed
+            if (tileScriptableObject == _fieldTile)
+            {
+                ScoreManager.instance.IncreaseScore(); // Call the method in ScoreManager to increase the score
+            }
         }
     }
 
