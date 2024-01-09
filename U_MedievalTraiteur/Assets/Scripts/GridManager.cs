@@ -16,9 +16,9 @@ public class GridManager : MonoBehaviour
     [SerializeField] private TileScriptableObject _fieldTile;
     [SerializeField] private TileScriptableObject _forestTile;
     [SerializeField] private TileScriptableObject _waterTile;
-    [SerializeField] private TileScriptableObject _structureTile;
+    [SerializeField] private TileScriptableObject _stoneTile;
     private Dictionary<Vector2, Tile> _tiles;
-    
+
     private Vector2 _selectedTilePosition;
     
     public static GridManager Instance;
@@ -114,7 +114,7 @@ public class GridManager : MonoBehaviour
             _tiles[position] = Instantiate(tileScriptableObject.TilePrefab, new Vector3(position.x, 0, position.y), Quaternion.identity);
 
             // Increment the score when a tile is successfully placed
-            if (tileScriptableObject == _fieldTile || tileScriptableObject == _forestTile || tileScriptableObject == _waterTile || tileScriptableObject == _structureTile)
+            if (tileScriptableObject == _fieldTile || tileScriptableObject == _forestTile || tileScriptableObject == _waterTile || tileScriptableObject == _stoneTile)
             {
                 ScoreManager.instance.IncreaseScore(); // Call the method in ScoreManager to increase the score
             }
