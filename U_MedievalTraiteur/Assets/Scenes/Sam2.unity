@@ -837,6 +837,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tileList:
   - {fileID: 11400000, guid: 8f1898f8664064453aeaf4cee31559ea, type: 2}
+  - {fileID: 11400000, guid: 3167a75bb9880467f813631e6c1276b7, type: 2}
   - {fileID: 11400000, guid: 70181f1208ba54e0091fe39fb77185b4, type: 2}
   _tileUIPrefab: {fileID: 6443099984093917904, guid: e424cfc6315904f3d8f4e6ad6ec09e10,
     type: 3}

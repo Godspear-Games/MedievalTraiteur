@@ -11,6 +11,7 @@ public class TileListManager : MonoBehaviour
 
     private void Start()
     {
+        ShuffleList(_tileList);
         GenerateList();
     }
 
@@ -20,6 +21,19 @@ public class TileListManager : MonoBehaviour
         {
             GameObject newUITile = Instantiate(_tileUIPrefab, _tileUIParent);
             newUITile.GetComponent<TileUIObject>().SetupTileUIObject(tileScriptableObject);
+        }
+    }
+
+    // Fisher-Yates shuffle algorithm to shuffle the list
+    private void ShuffleList(List<TileScriptableObject> list)
+    {
+        int n = list.Count;
+        for (int i = n - 1; i > 0; i--)
+        {
+            int j = UnityEngine.Random.Range(0, i + 1);
+            TileScriptableObject temp = list[i];
+            list[i] = list[j];
+            list[j] = temp;
         }
     }
 }
