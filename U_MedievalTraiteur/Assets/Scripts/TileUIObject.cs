@@ -37,6 +37,12 @@ public class TileUIObject : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
         _uiImage.raycastTarget = true;
         GridManager.Instance.TryTileUpdate(_tileType);
         TileListManager.Instance.OnTilePlaced();
+
+        // Add the SoulValue to the total score
+        if (_tileType != null)
+        {
+            ScoreManager.Instance.AddToScore(_tileType.SoulValue);
+        }
     }
 
     public void OnDrag(PointerEventData eventData)

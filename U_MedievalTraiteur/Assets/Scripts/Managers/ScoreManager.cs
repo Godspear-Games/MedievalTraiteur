@@ -23,5 +23,7 @@ public class ScoreManager : MonoBehaviour
     public void AddToScore(int score)
     {
         TotalScore += score;
+        // Update the ScoreDisplayManager to display the updated score
+        ScoreDisplayManager.Instance.UpdateScoreText(TotalScore);
     }
 }

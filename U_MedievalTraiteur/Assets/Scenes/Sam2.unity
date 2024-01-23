@@ -669,7 +669,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.09803922}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.050980393}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -837,7 +837,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tileList:
   - {fileID: 11400000, guid: 8f1898f8664064453aeaf4cee31559ea, type: 2}
+  - {fileID: 11400000, guid: 8f1898f8664064453aeaf4cee31559ea, type: 2}
+  - {fileID: 11400000, guid: 8f1898f8664064453aeaf4cee31559ea, type: 2}
   - {fileID: 11400000, guid: 3167a75bb9880467f813631e6c1276b7, type: 2}
+  - {fileID: 11400000, guid: 3167a75bb9880467f813631e6c1276b7, type: 2}
+  - {fileID: 11400000, guid: 3167a75bb9880467f813631e6c1276b7, type: 2}
+  - {fileID: 11400000, guid: 70181f1208ba54e0091fe39fb77185b4, type: 2}
+  - {fileID: 11400000, guid: 70181f1208ba54e0091fe39fb77185b4, type: 2}
   - {fileID: 11400000, guid: 70181f1208ba54e0091fe39fb77185b4, type: 2}
   _tileUIPrefab: {fileID: 6443099984093917904, guid: e424cfc6315904f3d8f4e6ad6ec09e10,
     type: 3}

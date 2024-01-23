@@ -6,27 +6,20 @@ using System;
 
 public class ScoreDisplayManager: MonoBehaviour
 {
-    public static ScoreDisplayManager instance;
+    public static ScoreDisplayManager Instance { get; private set; }
     public TMP_Text scoreText;
-    private int score = 0;
 
-    public void Awake()
+    private void Awake()
     {
-        instance = this;
+        Instance = this;
     }
 
     void Start()
     {
-        UpdateScoreText();
+        UpdateScoreText(ScoreManager.Instance.TotalScore);
     }
 
-    public void IncreaseScore()
-    {
-        score++;
-        UpdateScoreText();
-    }
-
-    void UpdateScoreText()
+    public void UpdateScoreText(int score)
     {
         scoreText.text = score.ToString();
     }
