@@ -9,15 +9,7 @@ public class ScoreManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject); // Optionally, keep the score manager between scenes.
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        Instance = this; 
     }
 
     public void AddToScore(int score)
