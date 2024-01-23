@@ -1,33 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-using System;
 
 public class ScoreManager : MonoBehaviour
 {
-    public static ScoreManager instance;
-    public TMP_Text scoreText;
-    private int score = 0;
+    public static ScoreManager Instance { get; private set; }
+    public int TotalScore { get; private set; }
 
-    public void Awake()
+    private void Awake()
     {
-        instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // Optionally, keep the score manager between scenes.
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
-    void Start()
+    public void AddToScore(int score)
     {
-        UpdateScoreText();
-    }
-
-    public void IncreaseScore()
-    {
-        score++;
-        UpdateScoreText();
-    }
-
-    void UpdateScoreText()
-    {
-        scoreText.text = score.ToString();
+        TotalScore += score;
     }
 }

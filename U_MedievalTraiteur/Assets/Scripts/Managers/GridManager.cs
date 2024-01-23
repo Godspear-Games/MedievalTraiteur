@@ -116,12 +116,6 @@ public class GridManager : MonoBehaviour
         {
             Destroy(tile.gameObject);
             _tiles[position] = Instantiate(tileScriptableObject.TilePrefab, new Vector3(position.x, 0, position.y), Quaternion.identity);
-
-            // Increment the score when a tile is successfully placed
-            if (tileScriptableObject == _fieldTile)
-            {
-                ScoreManager.instance.IncreaseScore(); // Call the method in ScoreManager to increase the score
-            }
         }
     }
 
