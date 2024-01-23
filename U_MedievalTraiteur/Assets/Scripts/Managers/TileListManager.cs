@@ -22,11 +22,11 @@ public class TileListManager : MonoBehaviour
     {
         ShuffleList(_tileList);
         _shuffledTiles = new Queue<TileScriptableObject>(_tileList);
-        PresentNextTile();
     }
 
     private void PresentNextTile()
     {
+        Debug.Log("PresentNextTile called");
         if (_shuffledTiles.Count > 0)
         {
             TileScriptableObject tileScriptableObject = _shuffledTiles.Dequeue();
@@ -41,7 +41,6 @@ public class TileListManager : MonoBehaviour
             {
                 _shuffledTiles.Enqueue(tile);
             }
-            PresentNextTile();
         }
     }
 

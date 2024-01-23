@@ -103,7 +103,6 @@ public class GridManager : MonoBehaviour
     public void TryTileUpdate(TileScriptableObject tileScriptableObject)
     {
         SetTileType(_selectedTilePosition, tileScriptableObject);
-        TileListManager.Instance.OnTilePlaced();
     }
 
     public void SetTileType(Vector2 position, TileScriptableObject tileScriptableObject)
