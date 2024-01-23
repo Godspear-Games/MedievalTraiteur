@@ -20,15 +20,21 @@ public class GridManager : MonoBehaviour
     private Vector2 _selectedTilePosition;
     
     public static GridManager Instance;
+
+    private TileListManager _tileListManager; 
     
     private void Awake()
     {
+        _tileListManager = TileListManager.Instance;
         Instance = this;
     }
 
     private void Start()
     {
         GenerateGrid();
+
+        // Request the TileListManager to present the first tile
+        TileListManager.Instance.OnTilePlaced();
     }
 
     private void GenerateGrid()
@@ -97,6 +103,7 @@ public class GridManager : MonoBehaviour
     public void TryTileUpdate(TileScriptableObject tileScriptableObject)
     {
         SetTileType(_selectedTilePosition, tileScriptableObject);
+        TileListManager.Instance.OnTilePlaced();
     }
 
     public void SetTileType(Vector2 position, TileScriptableObject tileScriptableObject)

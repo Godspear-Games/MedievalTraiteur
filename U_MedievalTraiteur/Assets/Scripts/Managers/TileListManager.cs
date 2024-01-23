@@ -9,28 +9,38 @@ public class TileListManager : MonoBehaviour
     [SerializeField] private GameObject _tileUIPrefab;
     [SerializeField] private Transform _tileUIParent;
 
-    private int currentTileIndex = 0;
+    private Queue<TileScriptableObject> _shuffledTiles; // Use a queue to keep track of the order
+
+    public static TileListManager Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
         ShuffleList(_tileList);
+        _shuffledTiles = new Queue<TileScriptableObject>(_tileList);
         PresentNextTile();
     }
 
     private void PresentNextTile()
     {
-        if (currentTileIndex < _tileList.Count)
+        if (_shuffledTiles.Count > 0)
         {
-            TileScriptableObject tileScriptableObject = _tileList[currentTileIndex];
+            TileScriptableObject tileScriptableObject = _shuffledTiles.Dequeue();
             GameObject newUITile = Instantiate(_tileUIPrefab, _tileUIParent);
             newUITile.GetComponent<TileUIObject>().SetupTileUIObject(tileScriptableObject);
-            currentTileIndex++;
         }
         else
         {
-            // Reshuffle and reset the index to 0
+            // Reshuffle and refill the queue when all tiles are used
             ShuffleList(_tileList);
-            currentTileIndex = 0;
+            foreach (var tile in _tileList)
+            {
+                _shuffledTiles.Enqueue(tile);
+            }
             PresentNextTile();
         }
     }
@@ -38,7 +48,17 @@ public class TileListManager : MonoBehaviour
     // Call this method when the player places a tile to present the next one
     public void OnTilePlaced()
     {
-        PresentNextTile();
+        if (_shuffledTiles.Count > 0)
+        {
+            PresentNextTile();
+        }
+        else
+        {
+            // Reshuffle and refill the queue when all tiles are used
+            ShuffleList(_tileList);
+            _shuffledTiles = new Queue<TileScriptableObject>(_tileList);
+            PresentNextTile();
+        }
     }
 
     // Fisher-Yates shuffle algorithm to shuffle the list

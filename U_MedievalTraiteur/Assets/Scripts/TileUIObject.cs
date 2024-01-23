@@ -11,6 +11,13 @@ public class TileUIObject : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
     private Vector2 _offsetToMousePointer;
     private TileScriptableObject _tileType;
 
+    private TileListManager _tileListManager;
+
+    private void Awake()
+    {
+        _tileListManager = TileListManager.Instance;
+    }
+
     public void SetupTileUIObject(TileScriptableObject tileScriptableObject)
     {
         _uiImage.color = tileScriptableObject.UIColor;
@@ -29,6 +36,7 @@ public class TileUIObject : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
         transform.position = _startingPosition;
         _uiImage.raycastTarget = true;
         GridManager.Instance.TryTileUpdate(_tileType);
+        TileListManager.Instance.OnTilePlaced();
     }
 
     public void OnDrag(PointerEventData eventData)
