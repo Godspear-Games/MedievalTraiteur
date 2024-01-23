@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9389c273892f040819bcca7e126672da, type: 3}
   m_Name: FieldTile
   m_EditorClassIdentifier: 
-  Cost: 0
+  Name: 
+  Description: 
+  SoulValue: 5
   TilePrefab: {fileID: 6866121288092168948, guid: 1c0c9004c3fdc47b992f270786a252c2,
     type: 3}
-  _uiSprite: {fileID: 0}
-  _uiColor: {r: 0.9528302, g: 0.6981306, b: 0.049439307, a: 1}
+  UISprite: {fileID: 0}
+  UIColor: {r: 0.9528302, g: 0.6981306, b: 0.049439307, a: 1}

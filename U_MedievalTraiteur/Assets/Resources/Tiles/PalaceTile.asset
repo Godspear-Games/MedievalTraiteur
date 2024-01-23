@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9389c273892f040819bcca7e126672da, type: 3}
   m_Name: PalaceTile
   m_EditorClassIdentifier: 
-  Cost: 0
+  Name: 
+  Description: 
+  SoulValue: 50
   TilePrefab: {fileID: 6866121288092168948, guid: 4ccdfdd91b677474fbfaaf206a3bad28,
     type: 3}
-  _uiSprite: {fileID: 0}
+  UISprite: {fileID: 0}
   UIColor: {r: 0.7377242, g: 0.14751692, b: 0.8018868, a: 1}

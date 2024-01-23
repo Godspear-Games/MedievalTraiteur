@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9389c273892f040819bcca7e126672da, type: 3}
   m_Name: UnlockedTile
   m_EditorClassIdentifier: 
-  Cost: 0
+  Name: 
+  Description: 
+  SoulValue: 10
   TilePrefab: {fileID: 8389056142601685785, guid: 07e67907b80df46578736e20352428fa,
     type: 3}
-  _uiSprite: {fileID: 0}
-  _uiColor: {r: 0.8113208, g: 0.8113208, b: 0.8113208, a: 1}
+  UISprite: {fileID: 0}
+  UIColor: {r: 0.8113208, g: 0.8113208, b: 0.8113208, a: 1}
