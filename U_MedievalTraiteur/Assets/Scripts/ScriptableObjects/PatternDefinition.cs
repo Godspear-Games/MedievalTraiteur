@@ -6,12 +6,15 @@ using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "PatternDefinition", menuName = "Medieval Traiteur/CustomPattern", order = 1)]
 
-public class PatternDefinition : ScriptableObject
+public class PatternDefinition : SerializedScriptableObject
 {
-    public string patternName; 
-    public string patternDescription;
+    public string PatternName; 
+    public string PatternDescription;
+    
+    [TableMatrix(HorizontalTitle = "Input Tiles", SquareCells = true)]
+    public TileScriptableObject[,] InputTiles = new TileScriptableObject[4,4]; //2D array of tiles
+    
+    //public List<List<TileScriptableObject>> InputTiles = new List<List<TileScriptableObject>>(); //List of rows consisting of tiles
 
-    public List<List<TileScriptableObject>> inputTiles = new List<List<TileScriptableObject>>(); //List of rows consisting of tiles
-
-    public Tile outputStructure; //structure
+    public TileScriptableObject OutputStructure; //structure
 }

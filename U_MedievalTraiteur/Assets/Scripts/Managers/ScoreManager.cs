@@ -5,7 +5,7 @@ using UnityEngine;
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance { get; private set; }
-    public int TotalScore { get; private set; }
+    [SerializeField] private int _totalScore = 0;
 
     private void Awake()
     {
@@ -14,8 +14,13 @@ public class ScoreManager : MonoBehaviour
 
     public void AddToScore(int score)
     {
-        TotalScore += score;
-        // Update the ScoreDisplayManager to display the updated score
-        ScoreDisplayManager.Instance.UpdateScoreText(TotalScore);
+        _totalScore += score;
+        // send UpdateScore event
+        EventManager.Instance.UpdateScore(_totalScore);
+    }
+
+    public int GetScore()
+    {
+        return _totalScore;
     }
 }

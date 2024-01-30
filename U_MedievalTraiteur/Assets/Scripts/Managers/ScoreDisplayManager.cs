@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.Serialization;
 
 public class ScoreDisplayManager: MonoBehaviour
 {
     public static ScoreDisplayManager Instance { get; private set; }
-    public TMP_Text scoreText;
+    [SerializeField] private TMP_Text _scoreText;
 
     private void Awake()
     {
@@ -16,11 +17,12 @@ public class ScoreDisplayManager: MonoBehaviour
 
     void Start()
     {
-        UpdateScoreText(ScoreManager.Instance.TotalScore);
+        EventManager.Instance.OnUpdateScore += UpdateScoreText;
+        UpdateScoreText(ScoreManager.Instance.GetScore());
     }
 
     public void UpdateScoreText(int score)
     {
-        scoreText.text = score.ToString();
+        _scoreText.text = score.ToString();
     }
 }

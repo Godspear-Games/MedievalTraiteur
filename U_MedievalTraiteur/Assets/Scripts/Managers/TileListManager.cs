@@ -10,7 +10,9 @@ public class TileListManager : MonoBehaviour
     [SerializeField] private Transform _tileUIParent;
 
     private Queue<TileScriptableObject> _shuffledTiles; // Use a queue to keep track of the order
-
+    
+    private List<GameObject> _currentTileUIObjects = new List<GameObject>();
+    
     public static TileListManager Instance;
 
     private void Awake()
@@ -26,12 +28,17 @@ public class TileListManager : MonoBehaviour
 
     private void PresentNextTile()
     {
+        foreach (GameObject currenttileuiobject in _currentTileUIObjects)
+        {
+            Destroy(currenttileuiobject);
+        }
         Debug.Log("PresentNextTile called");
         if (_shuffledTiles.Count > 0)
         {
             TileScriptableObject tileScriptableObject = _shuffledTiles.Dequeue();
             GameObject newUITile = Instantiate(_tileUIPrefab, _tileUIParent);
             newUITile.GetComponent<TileUIObject>().SetupTileUIObject(tileScriptableObject);
+            _currentTileUIObjects.Add(newUITile);
         }
         else
         {
