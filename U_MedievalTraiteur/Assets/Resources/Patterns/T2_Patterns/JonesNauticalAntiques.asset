@@ -87,6 +87,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  PatternName: Jones's Nautical Antiques
-  PatternDescription: Jones's Nautical Antiques
+  PatternName: Jones's nautical antiques
+  PatternDescription: Jones's nautical antiques
   OutputStructure: {fileID: 11400000, guid: 147d8f9aa534fe144bc0fd4e3f5a0fd5, type: 2}

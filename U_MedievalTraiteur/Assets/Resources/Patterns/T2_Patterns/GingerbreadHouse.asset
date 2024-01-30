@@ -16,10 +16,8 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 998eb63fcece00245acb425258484c58, type: 2}
-    - {fileID: 11400000, guid: 40dc8a03aee292f48bfe6b07132752d2, type: 2}
-    - {fileID: 11400000, guid: 261125f22fb4d2a4aa62ff93280faa1c, type: 2}
-    - {fileID: 11400000, guid: ddeee94de69f2d74681b3ddec57c9830, type: 2}
+    - {fileID: 11400000, guid: 8edd934cf7f18154dba1c050b1dd0a0c, type: 2}
+    - {fileID: 11400000, guid: fa5daab153e0bd749ba78190b9fdf844, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -47,12 +45,12 @@ MonoBehaviour:
       Entry: 6
       Data: 
     - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
       Entry: 10
       Data: 1
     - Name: 
-      Entry: 10
-      Data: 2
-    - Name: 
       Entry: 6
       Data: 
     - Name: 
@@ -62,8 +60,8 @@ MonoBehaviour:
       Entry: 6
       Data: 
     - Name: 
-      Entry: 10
-      Data: 3
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 6
       Data: 
@@ -88,6 +86,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  PatternName: Vampiric Chateau
-  PatternDescription: Vampiric Chateau
-  OutputStructure: {fileID: 11400000, guid: f9b3fb9d2168fc247b87938accdf6730, type: 2}
+  PatternName: Gingerbread house
+  PatternDescription: Gingerbread house
+  OutputStructure: {fileID: 11400000, guid: b25f34351d00e534688fcc21a190861b, type: 2}

@@ -86,6 +86,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  PatternName: Cursed Well
-  PatternDescription: Cursed Well
+  PatternName: Cursed well
+  PatternDescription: Cursed well
   OutputStructure: {fileID: 11400000, guid: f8186772480635e4ba98d23fab39e365, type: 2}

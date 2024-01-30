@@ -87,5 +87,5 @@ MonoBehaviour:
       Entry: 8
       Data: 
   PatternName: Seance parlor
-  PatternDescription: seance
+  PatternDescription: Seance parlor
   OutputStructure: {fileID: 11400000, guid: 2c2b28a4b20492e4f8b550afca428b12, type: 2}

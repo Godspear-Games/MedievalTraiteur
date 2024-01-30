@@ -87,6 +87,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  PatternName: Ghost Ship
-  PatternDescription: Ghost Ship
+  PatternName: Ghost ship
+  PatternDescription: Ghost ship
   OutputStructure: {fileID: 11400000, guid: c3c49b23153c6f54fb194099b1e2420a, type: 2}

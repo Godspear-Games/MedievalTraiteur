@@ -86,6 +86,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  PatternName: Phantom Opera House
-  PatternDescription: Phantom Opera House
+  PatternName: Phantom opera house
+  PatternDescription: Phantom opera house
   OutputStructure: {fileID: 11400000, guid: 36e494c664a2a034d878c598ef640fd5, type: 2}

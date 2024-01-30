@@ -88,6 +88,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  PatternName: Vampiric Chateau
-  PatternDescription: Vampiric Chateau
+  PatternName: Vampiric chateau
+  PatternDescription: Vampiric chateau
   OutputStructure: {fileID: 11400000, guid: f9b3fb9d2168fc247b87938accdf6730, type: 2}

@@ -85,6 +85,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  PatternName: Cursed Woods
-  PatternDescription: woods
+  PatternName: Cursed woods
+  PatternDescription: Cursed woods
   OutputStructure: {fileID: 11400000, guid: 261125f22fb4d2a4aa62ff93280faa1c, type: 2}

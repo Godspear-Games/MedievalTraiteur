@@ -89,6 +89,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  PatternName: Cursed Inn
-  PatternDescription: Cursed Inn
+  PatternName: Cursed inn
+  PatternDescription: Cursed inn
   OutputStructure: {fileID: 11400000, guid: 105900f304532d44a8c0fc896c782cad, type: 2}

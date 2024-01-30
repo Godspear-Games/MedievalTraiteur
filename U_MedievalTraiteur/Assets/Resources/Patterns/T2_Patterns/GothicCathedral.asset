@@ -87,6 +87,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  PatternName: Gothic Cathedral
-  PatternDescription: Gothic Cathedral
+  PatternName: Gothic cathedral
+  PatternDescription: Gothic cathedral
   OutputStructure: {fileID: 11400000, guid: 3a69795e04c0da74faa4fd4db168f26a, type: 2}

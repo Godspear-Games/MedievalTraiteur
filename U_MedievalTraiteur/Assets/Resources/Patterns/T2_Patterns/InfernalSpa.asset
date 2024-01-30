@@ -88,6 +88,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  PatternName: Infernal Spa
-  PatternDescription: Infernal Spa
+  PatternName: Infernal spa
+  PatternDescription: Infernal spa
   OutputStructure: {fileID: 11400000, guid: d15d0247aae8f21468559caaa7816097, type: 2}

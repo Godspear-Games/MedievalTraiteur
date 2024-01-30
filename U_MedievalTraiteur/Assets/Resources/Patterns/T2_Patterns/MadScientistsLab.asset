@@ -87,6 +87,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  PatternName: Mad Scientist's Lab
-  PatternDescription: Mad Scientist's Lab
+  PatternName: Mad scientist's lab
+  PatternDescription: Mad scientist's lab
   OutputStructure: {fileID: 11400000, guid: 177b0a7004534094a9efd3a8d0109ce6, type: 2}

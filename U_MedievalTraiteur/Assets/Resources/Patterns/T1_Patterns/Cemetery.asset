@@ -87,5 +87,5 @@ MonoBehaviour:
       Entry: 8
       Data: 
   PatternName: Cemetery
-  PatternDescription: cemetery
+  PatternDescription: Cemetery
   OutputStructure: {fileID: 11400000, guid: fb5d56b637a828942a31e3f8774cb452, type: 2}
