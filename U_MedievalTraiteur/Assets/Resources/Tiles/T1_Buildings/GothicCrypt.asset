@@ -10,12 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9389c273892f040819bcca7e126672da, type: 3}
-  m_Name: Wood
+  m_Name: GothicCrypt
   m_EditorClassIdentifier: 
   Name: 
   Description: 
   SoulValue: 0
-  TilePrefab: {fileID: 3277987334200384815, guid: 78aa830c33a07bb4687919b07c7e36c7,
-    type: 3}
+  TilePrefab: {fileID: 0}
   UISprite: {fileID: 0}
-  UIColor: {r: 0.08410466, g: 0.509434, b: 0.11300721, a: 0}
+  UIColor: {r: 0, g: 0, b: 0, a: 0}
