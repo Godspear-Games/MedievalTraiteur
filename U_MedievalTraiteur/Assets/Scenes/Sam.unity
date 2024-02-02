@@ -308,6 +308,11 @@ PrefabInstance:
       propertyPath: useScreenEdge
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1611763371084584550, guid: 3dbfe03e11637cb449e1ea94a11625ef,
+        type: 3}
+      propertyPath: maxRotationSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 4478434020151648519, guid: 3dbfe03e11637cb449e1ea94a11625ef,
         type: 3}
       propertyPath: m_LocalPosition.y
