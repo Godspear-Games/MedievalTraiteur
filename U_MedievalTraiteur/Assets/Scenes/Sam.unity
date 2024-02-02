@@ -280,6 +280,99 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &61415079
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1165894997893512716, guid: 3dbfe03e11637cb449e1ea94a11625ef,
+        type: 3}
+      propertyPath: m_Name
+      value: Camera Rig Base
+      objectReference: {fileID: 0}
+    - target: {fileID: 1611763371084584550, guid: 3dbfe03e11637cb449e1ea94a11625ef,
+        type: 3}
+      propertyPath: maxHeight
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1611763371084584550, guid: 3dbfe03e11637cb449e1ea94a11625ef,
+        type: 3}
+      propertyPath: minHeight
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1611763371084584550, guid: 3dbfe03e11637cb449e1ea94a11625ef,
+        type: 3}
+      propertyPath: useScreenEdge
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4478434020151648519, guid: 3dbfe03e11637cb449e1ea94a11625ef,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4478434020151648519, guid: 3dbfe03e11637cb449e1ea94a11625ef,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5171333131104042815, guid: 3dbfe03e11637cb449e1ea94a11625ef,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5171333131104042815, guid: 3dbfe03e11637cb449e1ea94a11625ef,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5171333131104042815, guid: 3dbfe03e11637cb449e1ea94a11625ef,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5171333131104042815, guid: 3dbfe03e11637cb449e1ea94a11625ef,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5171333131104042815, guid: 3dbfe03e11637cb449e1ea94a11625ef,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5171333131104042815, guid: 3dbfe03e11637cb449e1ea94a11625ef,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5171333131104042815, guid: 3dbfe03e11637cb449e1ea94a11625ef,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5171333131104042815, guid: 3dbfe03e11637cb449e1ea94a11625ef,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5171333131104042815, guid: 3dbfe03e11637cb449e1ea94a11625ef,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5171333131104042815, guid: 3dbfe03e11637cb449e1ea94a11625ef,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3dbfe03e11637cb449e1ea94a11625ef, type: 3}
 --- !u!1 &111711173
 GameObject:
   m_ObjectHideFlags: 0
@@ -956,9 +1049,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e91d26f2e17084c5488a6d6215a6f098, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _width: 4
-  _height: 4
-  _availableTiles: 3
+  _width: 20
+  _height: 20
+  _availableTiles: 2
   _lockedTile: {fileID: 11400000, guid: 76e11878f49234f52a76eb33bbdbe33d, type: 2}
   _unlockedTile: {fileID: 11400000, guid: 70181f1208ba54e0091fe39fb77185b4, type: 2}
   _palaceTile: {fileID: 11400000, guid: 3167a75bb9880467f813631e6c1276b7, type: 2}
@@ -990,7 +1083,17 @@ PrefabInstance:
     - target: {fileID: 7073244045988577706, guid: a4011249b96a70c439c6de7d3d3243d7,
         type: 3}
       propertyPath: current
-      value: 125
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7073244045988577706, guid: a4011249b96a70c439c6de7d3d3243d7,
+        type: 3}
+      propertyPath: maximum
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7073244045988577706, guid: a4011249b96a70c439c6de7d3d3243d7,
+        type: 3}
+      propertyPath: minimum
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7660469067127276673, guid: a4011249b96a70c439c6de7d3d3243d7,
         type: 3}
@@ -1243,3 +1346,4 @@ SceneRoots:
   - {fileID: 742271347}
   - {fileID: 1015346016}
   - {fileID: 1447170999}
+  - {fileID: 61415079}
