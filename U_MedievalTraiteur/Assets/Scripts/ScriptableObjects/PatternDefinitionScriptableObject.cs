@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "PatternDefinition", menuName = "Medieval Traiteur/CustomPattern", order = 1)]
 
-public class PatternDefinition : SerializedScriptableObject
+public class PatternDefinitionScriptableObject : SerializedScriptableObject
 {
     public string PatternName; 
     public string PatternDescription;
@@ -17,4 +17,16 @@ public class PatternDefinition : SerializedScriptableObject
     //public List<List<TileScriptableObject>> InputTiles = new List<List<TileScriptableObject>>(); //List of rows consisting of tiles
 
     public TileScriptableObject OutputStructure; //structure
+    
+    public bool PatternContainsTile(TileScriptableObject tile)
+    {
+        foreach (var inputTile in InputTiles)
+        {
+            if (inputTile == tile)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

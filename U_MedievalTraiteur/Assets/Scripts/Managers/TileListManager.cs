@@ -18,15 +18,16 @@ public class TileListManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-    }
-
-    private void Start()
-    {
         ShuffleList(_tileList);
         _shuffledTiles = new Queue<TileScriptableObject>(_tileList);
     }
 
-    private void PresentNextTile()
+    private void Start()
+    {
+
+    }
+
+    public void PresentNextTile()
     {
         foreach (GameObject currenttileuiobject in _currentTileUIObjects)
         {
