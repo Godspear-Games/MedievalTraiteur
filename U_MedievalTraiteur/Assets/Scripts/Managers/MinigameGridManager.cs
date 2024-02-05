@@ -21,10 +21,13 @@ public class MinigameGridManager : MonoBehaviour
     
     public static MinigameGridManager Instance;
 
+    public PatternPopup patternPopup;
+
     private void Awake()
     {
         Instance = this;
         LoadPatterns();
+        EventManager.Instance.OnShowPopup += ShowTilePopup;
     }
 
     // Start is called before the first frame update
@@ -325,5 +328,21 @@ public class MinigameGridManager : MonoBehaviour
     {
         public List<Vector2> ValidPatternTiles;
         public PatternDefinitionScriptableObject Pattern;
+    }
+
+    public void ShowTilePopup(TileScriptableObject tile)
+    {
+        if (patternPopup != null)
+        {
+            patternPopup.ShowPopup(tile);
+        }
+    }
+
+    public void HideTilePopup()
+    {
+        if (patternPopup != null)
+        {
+            patternPopup.HidePopup();
+        }
     }
 }

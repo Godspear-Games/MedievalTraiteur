@@ -19,4 +19,11 @@ public class EventManager : MonoBehaviour
     {
         OnUpdateScore?.Invoke(score);
     }
+
+    public event Action<TileScriptableObject> OnShowPopup;
+
+    public void ShowPopup(TileScriptableObject tile)
+    {
+        OnShowPopup?.Invoke(tile);
+    }
 }
