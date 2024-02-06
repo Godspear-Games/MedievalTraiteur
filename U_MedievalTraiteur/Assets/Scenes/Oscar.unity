@@ -813,8 +813,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c5ae439fbb6c49f5b0dfa57337c992d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tileList:
-  - {fileID: 11400000, guid: 2f5eb83acad19b7499f86bf54de2ac1b, type: 2}
+  _tileDeck:
+  - Tilescriptableobject: {fileID: 11400000, guid: 2f5eb83acad19b7499f86bf54de2ac1b,
+      type: 2}
+    Amount: 10
+  - Tilescriptableobject: {fileID: 11400000, guid: 9705f8e1d2dcbe14a8308d93868c94ca,
+      type: 2}
+    Amount: 10
+  - Tilescriptableobject: {fileID: 11400000, guid: cd5ee7d18c077574fa89ef6ae6b456de,
+      type: 2}
+    Amount: 10
+  - Tilescriptableobject: {fileID: 11400000, guid: a43bcfc2ec378e143ab1be0b82d16826,
+      type: 2}
+    Amount: 10
+  - Tilescriptableobject: {fileID: 11400000, guid: 56f2a2e9e55a70442888118c2d1045cb,
+      type: 2}
+    Amount: 10
   _tileUIPrefab: {fileID: 6443099984093917904, guid: e424cfc6315904f3d8f4e6ad6ec09e10,
     type: 3}
   _tileUIParent: {fileID: 508429202}
@@ -936,6 +950,7 @@ MonoBehaviour:
   _tilePrefab: {fileID: 513276170032329087, guid: b828a75150f494a26b3bfe99eac91ebb,
     type: 3}
   _gridLayoutGroup: {fileID: 1340636694}
+  patternPopup: {fileID: 0}
 --- !u!1 &2083730083
 GameObject:
   m_ObjectHideFlags: 0

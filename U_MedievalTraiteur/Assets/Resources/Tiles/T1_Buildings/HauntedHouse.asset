@@ -17,5 +17,5 @@ MonoBehaviour:
   SoulValue: 0
   TilePrefab: {fileID: 5714960790525996116, guid: 088b7ea56212c4a4bac639daf7b0801a,
     type: 3}
-  UISprite: {fileID: -2094894923, guid: 92d4d7e2e30894da68b9805c96ff3782, type: 3}
+  UISprite: {fileID: 21300000, guid: 57f7b10d86d024143a43fa5414a33a41, type: 3}
   UIColor: {r: 0, g: 0, b: 0, a: 0}

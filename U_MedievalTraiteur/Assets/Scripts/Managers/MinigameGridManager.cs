@@ -27,7 +27,6 @@ public class MinigameGridManager : MonoBehaviour
     {
         Instance = this;
         LoadPatterns();
-        EventManager.Instance.OnShowPopup += ShowTilePopup;
     }
 
     // Start is called before the first frame update
@@ -59,9 +58,9 @@ public class MinigameGridManager : MonoBehaviour
     {
         _tileData = new Dictionary<Vector2, TileScriptableObject>();
         _tileObjects = new Dictionary<Vector2, MinigameGridTile>();
-        for (int x = 0; x < _widthTileAmount; x++)
+        for (int y = 0; y < _heightTileAmount; y++)
         {
-            for (int y = 0; y < _heightTileAmount; y++)
+            for (int x = 0; x < _widthTileAmount; x++)
             {
                 MinigameGridTile tile = Instantiate(_tilePrefab, _gridLayoutGroup.transform);
                 tile.name = $"Tile {x} {y}";
@@ -243,9 +242,9 @@ public class MinigameGridManager : MonoBehaviour
 
         for (int rotation = 0; rotation < 4; rotation++) // 0, 90, 180, 270 degrees
         {
-            for (int i = 0; i < gridRows; i++)
+            for (int i = -(gridRows-1); i < gridRows; i++)
             {
-                for (int j = 0; j < gridCols; j++)
+                for (int j = -(gridCols-1); j < gridCols; j++)
                 {
 
                     List<Vector2> validPatternTiles = CheckPatternAtPosition(new Vector2(i, j), pattern.InputTiles, gridRows, gridCols, rotation);
