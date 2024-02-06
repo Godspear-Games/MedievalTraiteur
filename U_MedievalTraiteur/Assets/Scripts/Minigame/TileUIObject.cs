@@ -27,19 +27,17 @@ public class TileUIObject : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        transform.position = _startingPosition;
-        _uiImage.raycastTarget = true;
-        
+
         if (MinigameGridManager.Instance.TryTileUpdate(_tileType))
         {
+            TileListManager.Instance.RemoveTileFromHand(_tileType);
             TileListManager.Instance.OnTilePlaced();
         }
-
-        // Add the SoulValue to the total score
-        // if (_tileType != null)
-        // {
-        //     ScoreManager.Instance.AddToScore(_tileType.SoulValue);
-        // }
+        else
+        {
+            transform.position = _startingPosition;
+            _uiImage.raycastTarget = true;
+        }
     }
 
     public void OnDrag(PointerEventData eventData)

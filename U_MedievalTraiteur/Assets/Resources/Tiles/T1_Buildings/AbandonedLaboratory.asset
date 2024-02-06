@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9389c273892f040819bcca7e126672da, type: 3}
   m_Name: AbandonedLaboratory
   m_EditorClassIdentifier: 
-  Name: 
+  Name: Abandoned Laboratory
   Description: 
   SoulValue: 0
   TilePrefab: {fileID: 0}
   UISprite: {fileID: 21300000, guid: 57f7b10d86d024143a43fa5414a33a41, type: 3}
-  UIColor: {r: 0, g: 0, b: 0, a: 0}
+  UIColor: {r: 1, g: 1, b: 1, a: 1}

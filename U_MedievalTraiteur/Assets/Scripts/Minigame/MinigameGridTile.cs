@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,32 +10,29 @@ public class MinigameGridTile : MonoBehaviour, IPointerEnterHandler, IPointerExi
     private TileScriptableObject _tileType;
     [SerializeField] private Image _tileImage;
     [SerializeField] private GameObject _highlight;
-    
-    private Vector2 _startingPosition;
-    private Vector2 _offsetToMousePointer;
-    
-    // Start is called before the first frame update
-    void Start()
+
+
+    private void Start()
     {
-        
+        if (_highlight)
+        {
+            _highlight.SetActive(false);
+            _tileImage.color = Color.gray;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    
     public void SetTileType(TileScriptableObject tileType)
     {
         _tileType = tileType;
         if (_tileType != null)
         {
             _tileImage.sprite = tileType.UISprite;
+            _tileImage.color = Color.white;
         }
         else
         {
             _tileImage.sprite = null;
+            _tileImage.color = Color.gray;
         }
 
     }
