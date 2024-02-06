@@ -9,6 +9,7 @@ using UnityEngine.Serialization;
 [Serializable]
 public class TileScriptableObject : ScriptableObject
 {
+    public bool IsStructure;
     public string Name;
     public string Description;
 

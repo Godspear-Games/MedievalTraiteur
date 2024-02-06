@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9389c273892f040819bcca7e126672da, type: 3}
   m_Name: MadScientistsLab
   m_EditorClassIdentifier: 
+  IsStructure: 1
   Name: 
   Description: 
-  SoulValue: 0
+  SoulValue: 10
   TilePrefab: {fileID: 0}
   UISprite: {fileID: 0}
   UIColor: {r: 0, g: 0, b: 0, a: 0}

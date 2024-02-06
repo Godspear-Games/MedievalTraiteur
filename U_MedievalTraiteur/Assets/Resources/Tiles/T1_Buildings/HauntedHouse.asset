@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9389c273892f040819bcca7e126672da, type: 3}
   m_Name: HauntedHouse
   m_EditorClassIdentifier: 
+  IsStructure: 1
   Name: Haunted House
   Description: 
   SoulValue: 5

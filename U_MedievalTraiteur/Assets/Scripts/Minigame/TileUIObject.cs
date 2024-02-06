@@ -33,11 +33,20 @@ public class TileUIObject : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
             TileListManager.Instance.RemoveTileFromHand(_tileType);
             TileListManager.Instance.OnTilePlaced();
         }
+        //if the tile is dropped on an object with tag "Cashout" then the tile is removed from the hand and the cashout is updated
+        else if (eventData.pointerCurrentRaycast.gameObject.CompareTag("Cashout") && _tileType.IsStructure)
+        {
+            ScoreManager.Instance.AddToScore(_tileType.SoulValue);
+            TileListManager.Instance.RemoveTileFromHand(_tileType);
+            TileListManager.Instance.DoneAddingTiles();
+            TileListManager.Instance.OnTilePlaced();
+        }
         else
         {
             transform.position = _startingPosition;
             _uiImage.raycastTarget = true;
         }
+        
     }
 
     public void OnDrag(PointerEventData eventData)

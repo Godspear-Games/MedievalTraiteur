@@ -13,11 +13,11 @@ public class EventManager : MonoBehaviour
         Instance = this;
     }
     
-    public event Action<int> OnUpdateScore;
+    public event Action<int, int> OnUpdateScore;
     
-    public void UpdateScore(int score)
+    public void UpdateScore(int score, int maxScore)
     {
-        OnUpdateScore?.Invoke(score);
+        OnUpdateScore?.Invoke(score, maxScore);
     }
 
     public event Action<TileScriptableObject> OnShowPopup;
@@ -26,4 +26,18 @@ public class EventManager : MonoBehaviour
     {
         OnShowPopup?.Invoke(tile);
     }
+    
+    public event Action<int> OnGameOver;
+    
+    public void GameOver(int totalscore)
+    {
+        OnGameOver?.Invoke(totalscore);
+    }
+    
+    public event Action<int> OnMilestoneReached;
+    public void MilestoneReached(int nextmilestone)
+    {
+        OnMilestoneReached?.Invoke(nextmilestone);
+    }
+
 }

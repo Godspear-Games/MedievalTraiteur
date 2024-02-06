@@ -168,6 +168,8 @@ public class TileListManager : MonoBehaviour
         _tilesAdded = false;
         _handFilled = false;
         _visualHandRefreshed = false;
+        
+        ScoreManager.Instance.TurnCompleted();
     }
     
 }
