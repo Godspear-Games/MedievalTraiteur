@@ -21,6 +21,7 @@ public class PatternDefinitionScriptableObject : SerializedScriptableObject
     
     //public List<List<TileScriptableObject>> InputTiles = new List<List<TileScriptableObject>>(); //List of rows consisting of tiles
 
+    [InlineEditor(InlineEditorObjectFieldModes.Foldout, Expanded = true)]
     public TileScriptableObject OutputStructure; //structure
     
     public bool PatternContainsTile(TileScriptableObject tile)
