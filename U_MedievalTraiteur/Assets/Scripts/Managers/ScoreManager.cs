@@ -35,7 +35,8 @@ public class ScoreManager : MonoBehaviour
         {
             _turnCounter++;
         }
-        if (_turnCounter >= _amountOfTurns)
+        EventManager.Instance.UpdateTurnCounter(_turnCounter, _amountOfTurns);
+        if (_turnCounter > _amountOfTurns)
         {
             if (_totalScore >= _scoreMilestones[_currentMilestone])
             {

@@ -8,7 +8,6 @@ using UnityEngine.Serialization;
 public class ScoreDisplay: MonoBehaviour
 {
     [SerializeField] private TMP_Text _scoreText;
-
     void Start()
     {
         EventManager.Instance.OnUpdateScore += UpdateScoreText;

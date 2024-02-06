@@ -19,6 +19,13 @@ public class EventManager : MonoBehaviour
     {
         OnUpdateScore?.Invoke(score, maxScore);
     }
+    
+    public event Action<int, int> OnUpdateTurnCounter;
+    
+    public void UpdateTurnCounter(int turn, int maxTurns)
+    {
+        OnUpdateTurnCounter?.Invoke(turn, maxTurns);
+    }
 
     public event Action<TileScriptableObject> OnShowPopup;
 
