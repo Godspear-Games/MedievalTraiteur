@@ -28,8 +28,6 @@ public class CameraController : MonoBehaviour
     private float minHeight = 5f;
     [SerializeField]
     private float maxHeight = 50f;
-    [SerializeField]
-    private float zoomSpeed = 2f;
 
     //Rotation
     [SerializeField]
