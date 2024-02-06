@@ -28,10 +28,13 @@ public class ScoreManager : MonoBehaviour
         return _totalScore;
     }
     
-    public void TurnCompleted()
+    public void TurnCompleted(bool isvalidturn = true)
     {
         EventManager.Instance.UpdateScore(_totalScore, _scoreMilestones[_currentMilestone]);
-        _turnCounter++;
+        if (isvalidturn)
+        {
+            _turnCounter++;
+        }
         if (_turnCounter >= _amountOfTurns)
         {
             if (_totalScore >= _scoreMilestones[_currentMilestone])
