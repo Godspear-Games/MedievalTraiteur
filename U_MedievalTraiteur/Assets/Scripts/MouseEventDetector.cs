@@ -16,13 +16,13 @@ public class MouseEventDetector : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        GridManager.Instance.SetSelectedTilePosition(new Vector2(transform.parent.position.x, transform.parent.position.z));
+        //GridManager.Instance.SetSelectedTilePosition(new Vector2(transform.parent.position.x, transform.parent.position.z));
         _tile.MouseEnterMethod();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        GridManager.Instance.SetSelectedTilePosition(Vector2.zero);
+        //GridManager.Instance.SetSelectedTilePosition(Vector2.zero);
         _tile.MouseExitMethod();
     }
 }

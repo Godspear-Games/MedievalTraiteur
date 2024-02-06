@@ -2,13 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class TileListManager : MonoBehaviour
 {
-    [SerializeField] private List<TileDeckElement> _tileDeck;
-    private List<TileScriptableObject> _tileList = new List<TileScriptableObject>();
+    [FormerlySerializedAs("_tileDeck")] [SerializeField] private List<TileDeckElement> _tileDeckElements;
+    private List<TileScriptableObject> _tileDeck = new List<TileScriptableObject>();
+    private List<TileScriptableObject> _tileHand = new List<TileScriptableObject>();
+    [SerializeField] private int _maxTilesInHand = 5;
     [SerializeField] private GameObject _tileUIPrefab;
     [SerializeField] private Transform _tileUIParent;
 
@@ -18,6 +21,12 @@ public class TileListManager : MonoBehaviour
     
     public static TileListManager Instance;
 
+    private bool _tilesRemoved = false;
+    private bool _tilesAdded = false;
+    private bool _handFilled = false;
+    private bool _visualHandRefreshed = false;
+    
+
     private void Awake()
     {
         Instance = this;
@@ -26,65 +35,87 @@ public class TileListManager : MonoBehaviour
     private void Start()
     {
         GenerateDeck();
-        ShuffleList(_tileList);
-        _shuffledTiles = new Queue<TileScriptableObject>(_tileList);
+        RefillDeck();
+        SetupStartingHand();
+
     }
 
+    private void SetupStartingHand()
+    {
+        _tilesAdded = true;
+        _tilesRemoved = true;
+        StartCoroutine(UpdateDeckAndHand());
+    }
+    
     private void GenerateDeck()
     {
-        foreach (TileDeckElement tileDeckElement in _tileDeck)
+        foreach (TileDeckElement tileDeckElement in _tileDeckElements)
         {
             for (int i = 0; i < tileDeckElement.Amount; i++)
             {
-                _tileList.Add(tileDeckElement.Tilescriptableobject);
+                _tileDeck.Add(tileDeckElement.Tilescriptableobject);
             }
         }
     }
     
-    public void PresentNextTile()
+    public void RefillHand()
     {
-        foreach (GameObject currenttileuiobject in _currentTileUIObjects)
-        {
-            Destroy(currenttileuiobject);
-        }
-        Debug.Log("PresentNextTile called");
-        if (_shuffledTiles.Count > 0)
+        for (int i = _tileHand.Count; i < _maxTilesInHand; i++)
         {
             TileScriptableObject tileScriptableObject = _shuffledTiles.Dequeue();
             AddNewTileToHand(tileScriptableObject);
         }
-        else
+        
+        _handFilled = true;
+    }
+
+    public void RefillDeck()
+    {
+        ShuffleList(_tileDeck);
+        _shuffledTiles = new Queue<TileScriptableObject>(_tileDeck);
+    }
+
+    public void RefreshVisualTileList()
+    {
+        for (int i = _currentTileUIObjects.Count-1; i >=0 ; i--)
         {
-            // Reshuffle and refill the queue when all tiles are used
-            ShuffleList(_tileList);
-            foreach (var tile in _tileList)
-            {
-                _shuffledTiles.Enqueue(tile);
-            }
+            Destroy(_currentTileUIObjects[i]);
+        }
+        _currentTileUIObjects.Clear();
+        
+        foreach (TileScriptableObject tile in _tileHand)
+        {
+            GameObject newUITile = Instantiate(_tileUIPrefab, _tileUIParent);
+            newUITile.GetComponent<TileUIObject>().SetupTileUIObject(tile);
+            _currentTileUIObjects.Add(newUITile);
+        }
+        
+        _visualHandRefreshed = true;
+    }
+
+    public void RemoveTileFromHand(TileScriptableObject tile)
+    {
+        _tileHand.Remove(tile);
+        _tilesRemoved = true;
+    }
+    
+    public void AddNewTileToHand(TileScriptableObject tile)
+    {
+        if (tile != null)
+        {
+            _tileHand.Add(tile);
         }
     }
 
-    public void AddNewTileToHand(TileScriptableObject tile)
+    public void DoneAddingTiles()
     {
-        GameObject newUITile = Instantiate(_tileUIPrefab, _tileUIParent);
-        newUITile.GetComponent<TileUIObject>().SetupTileUIObject(tile);
-        _currentTileUIObjects.Add(newUITile);
+        _tilesAdded = true;
     }
-
+    
     // Call this method when the player places a tile to present the next one
     public void OnTilePlaced()
     {
-        if (_shuffledTiles.Count > 0)
-        {
-            PresentNextTile();
-        }
-        else
-        {
-            // Reshuffle and refill the queue when all tiles are used
-            ShuffleList(_tileList);
-            _shuffledTiles = new Queue<TileScriptableObject>(_tileList);
-            PresentNextTile();
-        }
+        StartCoroutine(UpdateDeckAndHand());
     }
 
     // Fisher-Yates shuffle algorithm to shuffle the list
@@ -111,4 +142,32 @@ public class TileListManager : MonoBehaviour
         
         private bool tileisnotnull => Tilescriptableobject != null;
     }
+    
+    // coroutine to update deck and hand in correct order
+    private IEnumerator UpdateDeckAndHand()
+    {
+        yield return new WaitUntil(() => _tilesRemoved);
+        Debug.Log("tile remove check passed");
+        yield return new WaitUntil(() => _tilesAdded);
+        Debug.Log("tile add check passed");
+        RefillHand();
+        yield return new WaitUntil(() => _handFilled);
+        Debug.Log("hand fill check passed");
+        RefreshVisualTileList();
+        yield return new WaitUntil(() => _visualHandRefreshed);
+        Debug.Log("visual hand refresh check passed");
+        
+        //if deck is now empty, refill and reshuffle
+        if (_shuffledTiles.Count == 0)
+        {
+            RefillDeck();
+        }
+        
+        //reset the bools
+        _tilesRemoved = false;
+        _tilesAdded = false;
+        _handFilled = false;
+        _visualHandRefreshed = false;
+    }
+    
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro; 
@@ -8,33 +9,74 @@ public class PatternPopup : MonoBehaviour
     public Image tileImage;
     public TMP_Text tileName;
 
-    private void OnEnable()
+    private Queue<TileScriptableObject> _popUpQueue = new Queue<TileScriptableObject>();
+    
+    private void Start()
     {
-        EventManager.Instance.OnShowPopup += ShowPopup;
+        EventManager.Instance.OnShowPopup += AddToPopUpQueue;
+        HidePopUp();
     }
     
     private void OnDestroy()
     {
-        EventManager.Instance.OnShowPopup -= ShowPopup;
+        EventManager.Instance.OnShowPopup -= AddToPopUpQueue;
     }
 
     private void OnDisable()
     {
-        EventManager.Instance.OnShowPopup -= ShowPopup;
+        EventManager.Instance.OnShowPopup -= AddToPopUpQueue;
     }
 
-    public void ShowPopup(TileScriptableObject tile)
+    public void AddToPopUpQueue(TileScriptableObject tile)
     {
-        if (tile != null)
+        Debug.Log("AddToPopUpQueue");
+        if (tile != null && TemporaryPopUpSaveVariable(tile) == false)
         {
-            tileImage.sprite = tile.UISprite;
-            tileName.text = tile.Name; 
-            gameObject.SetActive(true);
+            Debug.Log("add to queue");
+            _popUpQueue.Enqueue(tile);
+            Debug.Log("queue count"+ _popUpQueue.Count);
+            if (_popUpQueue.Count > 0)
+            {
+                ShowPopUp(_popUpQueue.Dequeue());
+            }
         }
     }
 
-    public void HidePopup()
+    public void ShowPopUp(TileScriptableObject tile)
     {
-        gameObject.SetActive(false);
+        transform.GetChild(0).gameObject.SetActive(true);
+        tileImage.sprite = tile.UISprite;
+        tileName.text = tile.Name;
+    }
+
+    public void ContinuePopUpQueue()
+    {
+        if (_popUpQueue.Count > 0)
+        {
+            ShowPopUp(_popUpQueue.Dequeue());
+        }
+        else
+        {
+            HidePopUp();
+        }
+    }
+
+    public void HidePopUp()
+    {
+        transform.GetChild(0).gameObject.SetActive(false);
+    }
+
+    private bool TemporaryPopUpSaveVariable(TileScriptableObject tile)
+    {
+        if (PlayerPrefs.HasKey(tile.Name))
+        {
+            return true;
+        }
+        else
+        {
+            //save now
+            PlayerPrefs.SetInt(tile.Name, 1);
+            return false;
+        }
     }
 }

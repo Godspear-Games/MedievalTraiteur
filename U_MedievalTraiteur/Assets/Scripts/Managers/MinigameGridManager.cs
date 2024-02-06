@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
+using Random = System.Random;
 
 public class MinigameGridManager : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class MinigameGridManager : MonoBehaviour
 
     private void Awake()
     {
+        PlayerPrefs.DeleteAll();
         Instance = this;
         LoadPatterns();
     }
@@ -34,7 +36,9 @@ public class MinigameGridManager : MonoBehaviour
     {
         SetGridLayoutGroupCellSize();
         GenerateGrid();
-        TileListManager.Instance.PresentNextTile();
+        
+        //todo commented to rework the logic, should this really be here?
+        //TileListManager.Instance.TryToPresentNextTile();
     }
 
     // Update is called once per frame
@@ -148,69 +152,53 @@ public class MinigameGridManager : MonoBehaviour
             _tileData[key] = tileScriptableObject;
         }
 
+        if (tileScriptableObject == null)
+        {
+            return;
+        }
+        
         //todo check grid for patterns
-        
-        //optimization to only check patterns that include the most recently placed tile
-        // List<PatternDefinitionScriptableObject> possiblycreatedpatterns = new List<PatternDefinitionScriptableObject>();
-        // foreach (PatternDefinitionScriptableObject pattern in _patternDefinitions)
-        // {
-        //     //check if pattern.inputtiles contains a tilescriptableobject that is the same as the tilescriptableobject that was just placed
-        //     if (pattern.PatternContainsTile(tileScriptableObject))
-        //     {
-        //         possiblycreatedpatterns.Add(pattern);
-        //         Debug.Log("Pattern " + pattern.name + " contains tile " + tileScriptableObject.name);
-        //     }
-        // }
-        
+
         List<ValidFoundPattern> validPatterns = new List<ValidFoundPattern>();
         
         //Check for patterns
         foreach (PatternDefinitionScriptableObject pattern in _patternDefinitions)
         {
-            List<Vector2> validPatternTiles = CheckForPatterns(pattern);
-            if (validPatternTiles != null)
+            foreach (ValidFoundPattern validfoundpattern in CheckForPatterns(pattern))
             {
-                ValidFoundPattern validFoundPattern = new ValidFoundPattern();
-                validFoundPattern.Pattern = pattern;
-                validFoundPattern.ValidPatternTiles = validPatternTiles;
-                
-                validPatterns.Add(validFoundPattern);
+                validPatterns.Add(validfoundpattern);
             }
         }
+        
+        //eliminate exact duplicates from validPatterns
+        
+        validPatterns = FilterDuplicatePatterns(validPatterns);
 
         if (validPatterns.Count <= 0)
         {
+            TileListManager.Instance.DoneAddingTiles();
             return;
         }
         
         //todo properly resolve overlap in patterns if multiple patterns are found
         
         //clear all tiles in the patterns
-        foreach (ValidFoundPattern validPattern in validPatterns)
-        {
-            //clear all tiles in the pattern
-            foreach (Vector2 validpatternkey in validPattern.ValidPatternTiles)
-            {
-                SetTileType(validpatternkey,null);
-            }
-        }
-        
+
         List<MinigameGridTile> tilesThatHaveBeenReplacedByOutputTiles = new List<MinigameGridTile>();
-        //replace one random tile in each validpattern with the output tile never replacing the same tile twice
-        foreach (ValidFoundPattern validPattern in validPatterns)
+        
+        //add output tile to player's hand
+
+        for (var index = 0; index < validPatterns.Count; index++)
         {
-            MinigameGridTile tileToReplace = null;
-            //replace one random tile with the output tile
-            do
+            ValidFoundPattern validPattern = validPatterns[index];
+            Debug.Log("output added to hand: " + validPattern.Pattern.OutputStructure.name);
+            TileListManager.Instance.AddNewTileToHand(validPattern.Pattern.OutputStructure);
+            EventManager.Instance.ShowPopup(validPattern.Pattern.OutputStructure);
+            //if last iteration set done adding tiles
+            if (index == validPatterns.Count - 1)
             {
-                int randomTile = UnityEngine.Random.Range(0, validPattern.ValidPatternTiles.Count);
-                _tileObjects.TryGetValue(validPattern.ValidPatternTiles[randomTile], out tileToReplace);
-            } while (tileToReplace == null || tilesThatHaveBeenReplacedByOutputTiles.Contains(tileToReplace));
-            
-            //get ket of tile to replace
-            Vector2 tileToReplaceKey = _tileObjects.FirstOrDefault(x => x.Value == tileToReplace).Key;
-            SetTileType(tileToReplaceKey, validPattern.Pattern.OutputStructure);
-            tilesThatHaveBeenReplacedByOutputTiles.Add(tileToReplace);
+                TileListManager.Instance.DoneAddingTiles();
+            }
         }
 
         //do a punch scale tween on each tile in the validpatterns
@@ -220,12 +208,18 @@ public class MinigameGridManager : MonoBehaviour
             {
                 if (_tileObjects.TryGetValue(validpatternkey, out MinigameGridTile tweentile))
                 {
-                    Debug.Log("Tweening tile" + tweentile.name);
+                    // Debug.Log("Tweening tile" + tweentile.name);
+                    LeanTween.cancel(tweentile.gameObject);
+                    tweentile.gameObject.transform.localScale = new Vector3(1, 1, 1);
                     
-                    LeanTween.scale(tweentile.gameObject, new Vector3(0.8f, 0.8f, 0.8f), 0.4f).setEasePunch();
-                    
+                    LeanTween.scale(tweentile.gameObject, new Vector3(0.8f, 0.8f, 0.8f), 0.4f).setEasePunch().setOnComplete(
+                        () =>
+                        {
+                            SetTileType(validpatternkey,null);
+                        });
+
                     //do 360 degree rotation for ui object
-                    LeanTween.rotateAroundLocal(tweentile.gameObject, Vector3.forward, 360, 0.4f);
+                    // LeanTween.rotateAroundLocal(tweentile.gameObject, Vector3.forward, 360, 0.4f);
                 }
             }
         }
@@ -234,81 +228,82 @@ public class MinigameGridManager : MonoBehaviour
     #endregion
     
     #region Pattern Matching
-    List<Vector2> CheckForPatterns(PatternDefinitionScriptableObject pattern)
+   List<ValidFoundPattern> CheckForPatterns(PatternDefinitionScriptableObject pattern)
+{
+    int gridRows = _tileObjects.Keys.Max(k => (int)k.y) + 1;
+    int gridCols = _tileObjects.Keys.Max(k => (int)k.x) + 1;
+    List<ValidFoundPattern> foundPatterns = new List<ValidFoundPattern>();
+
+    for (int rotation = 0; rotation < 4; rotation++) // 0, 90, 180, 270 degrees
     {
-        
-        int gridRows = _tileObjects.Keys.Max(k => (int)k.x) + 1;
-        int gridCols = _tileObjects.Keys.Max(k => (int)k.y) + 1;
-
-        for (int rotation = 0; rotation < 4; rotation++) // 0, 90, 180, 270 degrees
+        for (int i = -(gridRows - 1); i < gridRows; i++)
         {
-            for (int i = -(gridRows-1); i < gridRows; i++)
+            for (int j = -(gridCols - 1); j < gridCols; j++)
             {
-                for (int j = -(gridCols-1); j < gridCols; j++)
+                List<Vector2> validPatternTiles = CheckPatternAtPosition(new Vector2(j, i), pattern.InputTiles, gridRows, gridCols, rotation);
+                if (validPatternTiles != null)
                 {
-
-                    List<Vector2> validPatternTiles = CheckPatternAtPosition(new Vector2(i, j), pattern.InputTiles, gridRows, gridCols, rotation);
-                    if (validPatternTiles != null)
-                    {
-                        Debug.Log("Pattern found!" + pattern.name);
-                        return validPatternTiles; // Pattern matched with the specified rotation
-                    }
+                    Debug.Log("Pattern found!" + pattern.name);
+                    ValidFoundPattern validpattern = new ValidFoundPattern();
+                    validpattern.Pattern = pattern;
+                    validpattern.ValidPatternTiles = validPatternTiles;
+                    
+                    foundPatterns.Add(validpattern);
                 }
             }
         }
-
-        Debug.Log("Pattern not found: " + pattern.name);
-        return null; // Pattern not found in any rotation or position
     }
 
-    List<Vector2> CheckPatternAtPosition(Vector2 startPosition, TileScriptableObject[,] pattern, int gridRows, int gridCols, int rotation)
+    return foundPatterns;
+}
+
+List<Vector2> CheckPatternAtPosition(Vector2 startPosition, TileScriptableObject[,] pattern, int gridRows, int gridCols, int rotation)
+{
+    int patternRows = pattern.GetLength(0);
+    int patternCols = pattern.GetLength(1);
+
+    List<Vector2> validPatternTiles = new List<Vector2>();
+
+    for (int i = 0; i < patternRows; i++)
     {
-        int patternRows = pattern.GetLength(0);
-        int patternCols = pattern.GetLength(1);
-
-        List<Vector2> validPatternTiles = new List<Vector2>();
-        
-        for (int i = 0; i < patternRows; i++)
+        for (int j = 0; j < patternCols; j++)
         {
-            for (int j = 0; j < patternCols; j++)
+            Vector2 rotatedPosition = RotatePosition(startPosition, i, j, patternRows, patternCols, rotation);
+
+            if (rotatedPosition.x >= 0 && rotatedPosition.x < gridRows &&
+                rotatedPosition.y >= 0 && rotatedPosition.y < gridCols)
             {
-                Vector2 rotatedPosition = RotatePosition(startPosition, i, j, patternRows, patternCols, rotation);
+                TileScriptableObject patternTile = pattern[i, j];
 
-                if (rotatedPosition.x >= 0 && rotatedPosition.x < gridRows &&
-                    rotatedPosition.y >= 0 && rotatedPosition.y < gridCols)
+                if (patternTile != null)
                 {
-                    TileScriptableObject patternTile = pattern[i, j];
-
-                    if (patternTile != null)
+                    if (!_tileData.TryGetValue(rotatedPosition, out TileScriptableObject tileScriptableObject))
                     {
-                        if (!_tileData.TryGetValue(rotatedPosition, out TileScriptableObject tileScriptableObject))
-                        {
-                            return null; // Rotated position not found in the dictionary
-                        }
-
-                        if (tileScriptableObject == null || tileScriptableObject != patternTile)
-                        {
-                            return null; // Pattern doesn't match at this rotated position
-                        }
+                        return null; // Rotated position not found in the dictionary
                     }
-                    // If patternTile is null, treat it as a wildcard and accept any tile at this position
+
+                    if (tileScriptableObject == null || tileScriptableObject != patternTile)
+                    {
+                        return null; // Pattern doesn't match at this rotated position
+                    }
                 }
-                else if (pattern[i, j] != null)
-                {
-                    return null; // Pattern exceeds grid boundaries
-                }
-                
-                //if this tile is not null add it to the list of tiles to tween
-                if (pattern[i, j] != null)
-                {
-                    validPatternTiles.Add(rotatedPosition);
-                }
+                // If patternTile is null, treat it as a wildcard and accept any tile at this position
+            }
+            else if (pattern[i, j] != null)
+            {
+                return null; // Pattern exceeds grid boundaries or position already visited
+            }
+
+            // If this tile is not null, add it to the list of valid pattern tiles
+            if (pattern[i, j] != null)
+            {
+                validPatternTiles.Add(rotatedPosition);
             }
         }
-
-        return validPatternTiles; // Pattern matched with the specified rotation
     }
-
+    
+    return validPatternTiles; // Pattern matched with the specified rotation
+}
     Vector2 RotatePosition(Vector2 position, int i, int j, int patternRows, int patternCols, int rotation)
     {
         switch (rotation)
@@ -321,27 +316,47 @@ public class MinigameGridManager : MonoBehaviour
         }
     }
     #endregion
+
+    #region Pattern Match Comparing
+    List<ValidFoundPattern> FilterDuplicatePatterns(List<ValidFoundPattern> patterns)
+    {
+        for (int i = patterns.Count-1; i >=0; i--)
+        {
+            bool isDuplicate = false;
+            
+            for (int j = patterns.Count-1; j >=0; j--)
+            {
+                if (i == j)
+                {
+                    continue;
+                }
+                HashSet<Vector2> set1 = new HashSet<Vector2>(patterns[i].ValidPatternTiles);
+                HashSet<Vector2> set2 = new HashSet<Vector2>(patterns[j].ValidPatternTiles);
+                if (set1.SetEquals(set2) == false)
+                {
+                    continue;
+                }
+                else
+                {
+                    isDuplicate = true;
+                }
+            }
+            
+            if (isDuplicate)
+            {
+                patterns.RemoveAt(i);
+            }
+        }
+        
+        return patterns;
+        
+    }
     
-    
+
+    #endregion
     public class ValidFoundPattern
     {
         public List<Vector2> ValidPatternTiles;
         public PatternDefinitionScriptableObject Pattern;
-    }
-
-    public void ShowTilePopup(TileScriptableObject tile)
-    {
-        if (patternPopup != null)
-        {
-            patternPopup.ShowPopup(tile);
-        }
-    }
-
-    public void HideTilePopup()
-    {
-        if (patternPopup != null)
-        {
-            patternPopup.HidePopup();
-        }
     }
 }
