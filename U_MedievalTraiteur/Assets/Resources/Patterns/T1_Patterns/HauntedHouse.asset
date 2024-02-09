@@ -36,6 +36,9 @@ MonoBehaviour:
       Entry: 10
       Data: 0
     - Name: 
+      Entry: 10
+      Data: 1
+    - Name: 
       Entry: 6
       Data: 
     - Name: 
@@ -46,10 +49,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 10
-      Data: 1
-    - Name: 
-      Entry: 6
-      Data: 
+      Data: 0
     - Name: 
       Entry: 6
       Data: 
