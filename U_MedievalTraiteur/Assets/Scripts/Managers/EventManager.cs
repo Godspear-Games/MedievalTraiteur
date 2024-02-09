@@ -27,11 +27,11 @@ public class EventManager : MonoBehaviour
         OnUpdateTurnCounter?.Invoke(turn, maxTurns);
     }
 
-    public event Action<TileScriptableObject> OnShowPopup;
+    public event Action<PatternDefinitionScriptableObject> OnShowPopup;
 
-    public void ShowPopup(TileScriptableObject tile)
+    public void ShowPopup(PatternDefinitionScriptableObject patternDefinitionScriptableObject)
     {
-        OnShowPopup?.Invoke(tile);
+        OnShowPopup?.Invoke(patternDefinitionScriptableObject);
     }
     
     public event Action<int> OnGameOver;

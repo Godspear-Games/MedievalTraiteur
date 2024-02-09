@@ -12,12 +12,15 @@ public class TileScriptableObject : ScriptableObject
     public bool IsStructure;
     public string Name;
     public string Description;
-
+    
+    [PreviewField(120, ObjectFieldAlignment.Left)]
+    public Sprite UISprite;
+    
     public int SoulValue;
     [AssetSelector(Paths = "Assets/Prefabs/TilePrefabs")]
 
     public Tile TilePrefab;
-    public Sprite UISprite;
+
 
     [FormerlySerializedAs("_uiColor")] public Color UIColor;
 }

@@ -8,8 +8,9 @@ public class PatternPopup : MonoBehaviour
 {
     public Image tileImage;
     public TMP_Text tileName;
+    [SerializeField] private RecipeDisplayUI _recipeDisplayUI;
 
-    private Queue<TileScriptableObject> _popUpQueue = new Queue<TileScriptableObject>();
+    private Queue<PatternDefinitionScriptableObject> _popUpQueue = new Queue<PatternDefinitionScriptableObject>();
     
     private void Start()
     {
@@ -27,26 +28,27 @@ public class PatternPopup : MonoBehaviour
         EventManager.Instance.OnShowPopup -= AddToPopUpQueue;
     }
 
-    public void AddToPopUpQueue(TileScriptableObject tile)
+    public void AddToPopUpQueue(PatternDefinitionScriptableObject patternDefinitionScriptableObject)
     {
         Debug.Log("AddToPopUpQueue");
-        if (tile != null && TemporaryPopUpSaveVariable(tile) == false)
+        if (patternDefinitionScriptableObject.OutputStructure != null && TemporaryPopUpSaveVariable(patternDefinitionScriptableObject.OutputStructure) == false)
         {
             Debug.Log("add to queue");
-            _popUpQueue.Enqueue(tile);
+            _popUpQueue.Enqueue(patternDefinitionScriptableObject);
             Debug.Log("queue count"+ _popUpQueue.Count);
-            if (_popUpQueue.Count > 0)
+            if (_popUpQueue.Count > 0 && transform.GetChild(0).gameObject.activeSelf == false)
             {
                 ShowPopUp(_popUpQueue.Dequeue());
             }
         }
     }
 
-    public void ShowPopUp(TileScriptableObject tile)
+    public void ShowPopUp(PatternDefinitionScriptableObject patternDefinitionScriptableObject)
     {
+        _recipeDisplayUI.ShowRecipe(patternDefinitionScriptableObject);
         transform.GetChild(0).gameObject.SetActive(true);
-        tileImage.sprite = tile.UISprite;
-        tileName.text = tile.Name;
+        tileImage.sprite = patternDefinitionScriptableObject.OutputStructure.UISprite;
+        tileName.text = patternDefinitionScriptableObject.OutputStructure.Name;
     }
 
     public void ContinuePopUpQueue()

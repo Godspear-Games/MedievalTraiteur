@@ -193,7 +193,7 @@ public class MinigameGridManager : MonoBehaviour
             ValidFoundPattern validPattern = validPatterns[index];
             Debug.Log("output added to hand: " + validPattern.Pattern.OutputStructure.name);
             TileListManager.Instance.AddNewTileToHand(validPattern.Pattern.OutputStructure);
-            EventManager.Instance.ShowPopup(validPattern.Pattern.OutputStructure);
+            EventManager.Instance.ShowPopup(validPattern.Pattern);
             //if last iteration set done adding tiles
             if (index == validPatterns.Count - 1)
             {
