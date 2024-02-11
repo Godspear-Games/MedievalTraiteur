@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Cashout
+  - SceneGridTile
+  - UIGridTile
   layers:
   - Default
   - TransparentFX
@@ -44,4 +46,7 @@ TagManager:
     locked: 0
   - name: Highlight
     uniqueID: 706224411
+    locked: 0
+  - name: Quest UI
+    uniqueID: 495459745
     locked: 0

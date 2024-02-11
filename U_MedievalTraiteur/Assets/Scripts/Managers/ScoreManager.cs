@@ -21,6 +21,7 @@ public class ScoreManager : MonoBehaviour
     public void AddToScore(int score)
     {
         _totalScore += score;
+        EventManager.Instance.UpdateScore(_totalScore, _scoreMilestones[_currentMilestone]);
     }
 
     public int GetScore()
@@ -30,7 +31,6 @@ public class ScoreManager : MonoBehaviour
     
     public void TurnCompleted(bool isvalidturn = true)
     {
-        EventManager.Instance.UpdateScore(_totalScore, _scoreMilestones[_currentMilestone]);
         if (isvalidturn)
         {
             _turnCounter++;

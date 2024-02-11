@@ -22,11 +22,10 @@ public class MinigameGridManager : MonoBehaviour
     
     public static MinigameGridManager Instance;
 
-    public PatternPopup patternPopup;
-
     private void Awake()
     {
         PlayerPrefs.DeleteAll();
+        _selectedTileKey = new Vector2(-1, -1);
         Instance = this;
         LoadPatterns();
     }

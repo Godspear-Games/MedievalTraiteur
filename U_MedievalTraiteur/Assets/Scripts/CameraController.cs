@@ -28,6 +28,9 @@ public class CameraController : MonoBehaviour
     private float minHeight = 5f;
     [SerializeField]
     private float maxHeight = 50f;
+    
+    [SerializeField]
+    private AnimationCurve zoomZDistanceCurve;
 
     //Rotation
     [SerializeField]
@@ -62,19 +65,20 @@ public class CameraController : MonoBehaviour
 
     private void OnEnable()
     {
+        zoomHeight = minHeight;
         zoomHeight = cameraTransform.localScale.y;
         cameraTransform.LookAt(this.transform);
 
         lastPosition = this.transform.position;
         movement = cameraActions.Camera.Movement;
-        cameraActions.Camera.RotateCamera.performed += RotateCamera;
+        //cameraActions.Camera.RotateCamera.performed += RotateCamera;
         cameraActions.Camera.ZoomCamera.performed += ZoomCamera;
         cameraActions.Camera.Enable();
     }
 
     private void OnDisable()
     {
-        cameraActions.Camera.RotateCamera.performed -= RotateCamera;
+        //cameraActions.Camera.RotateCamera.performed -= RotateCamera;
         cameraActions.Camera.ZoomCamera.performed -= ZoomCamera;
         cameraActions.Disable();
     }
@@ -173,7 +177,7 @@ public class CameraController : MonoBehaviour
 
     private void UpdateCameraPosition()
     {
-        Vector3 zoomTarget = new Vector3(cameraTransform.localPosition.x, zoomHeight, cameraTransform.localPosition.z);
+        Vector3 zoomTarget = new Vector3(cameraTransform.localPosition.x, zoomHeight, -zoomZDistanceCurve.Evaluate(zoomHeight/maxHeight));
         Vector3 cameraForward = Vector3.Normalize(transform.position - zoomTarget);
 
         cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, zoomTarget, Time.deltaTime * zoomDampening);

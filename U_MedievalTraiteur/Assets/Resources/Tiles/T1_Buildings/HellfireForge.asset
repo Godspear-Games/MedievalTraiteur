@@ -15,7 +15,8 @@ MonoBehaviour:
   IsStructure: 1
   Name: Hellfire Forge
   Description: 
+  UISprite: {fileID: 21300000, guid: 92ea7ccc7c68848848b0c36503635916, type: 3}
   SoulValue: 10
-  TilePrefab: {fileID: 0}
-  UISprite: {fileID: 21300000, guid: 57f7b10d86d024143a43fa5414a33a41, type: 3}
+  TilePrefab: {fileID: 1623662292205880168, guid: f9fd680160b184e758bc7a1efb49370e,
+    type: 3}
   UIColor: {r: 1, g: 1, b: 1, a: 1}

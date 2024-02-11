@@ -2,32 +2,67 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Tile : MonoBehaviour
 {
-    [SerializeField] private GameObject _highlight;
+    private TileScriptableObject _tileScriptableObject;
+    [SerializeField] private GameObject _emptyTilePrefab;
+    [SerializeField] private Transform _modelParent;
 
-    private void Start()
+    public TileScriptableObject GetTileScriptableObject()
     {
-        if (_highlight)
+        return _tileScriptableObject;
+    }
+
+    public void SetupTile()
+    {
+        //logic to setup the tile if tile is empty
+        if (_tileScriptableObject == null)
         {
-            _highlight.SetActive(false);
+            SpawnEmptyTileModel();
+        }
+        //logic to setup the tile if tile is not empty
+        else
+        {
+            SpawnTileModel();
         }
     }
 
-    public void MouseExitMethod()
+    private void SpawnEmptyTileModel()
     {
-        if (_highlight)
-        {
-            _highlight.SetActive(false);
-        }
+        Instantiate(_emptyTilePrefab, _modelParent);
+        LeanTween.cancel(_modelParent.gameObject);
+        _modelParent.localScale = Vector3.zero;
+        LeanTween.scale(_modelParent.gameObject, Vector3.one * 0.95f, 0.25f).setEaseOutBack();
     }
     
-    public void MouseEnterMethod()
+    private void SpawnTileModel()
     {
-        if (_highlight)
+        //delete any existing model
+        foreach (Transform child in _modelParent)
         {
-            _highlight.SetActive(true);
+            Destroy(child.gameObject);
         }
+        
+        Instantiate(_tileScriptableObject.TilePrefab, _modelParent);
+        LeanTween.cancel(_modelParent.gameObject);
+        _modelParent.localScale = Vector3.zero;
+        LeanTween.scale(_modelParent.gameObject, Vector3.one, 0.25f).setEaseOutBack();
     }
+    
+    public void FillTile(TileScriptableObject tileScriptableObject)
+    {
+        _tileScriptableObject = tileScriptableObject;
+    }
+
+    // public void OnPointerEnter(PointerEventData eventData)
+    // {
+    //     GridManager.Instance.SetSelectedTile(this);
+    // }
+
+    // public void OnPointerExit(PointerEventData eventData)
+    // {
+    //     GridManager.Instance.DeselectTile(this);
+    // }
 }

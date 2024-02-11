@@ -19,7 +19,7 @@ public class TileScriptableObject : ScriptableObject
     public int SoulValue;
     [AssetSelector(Paths = "Assets/Prefabs/TilePrefabs")]
 
-    public Tile TilePrefab;
+    public GameObject TilePrefab;
 
 
     [FormerlySerializedAs("_uiColor")] public Color UIColor;

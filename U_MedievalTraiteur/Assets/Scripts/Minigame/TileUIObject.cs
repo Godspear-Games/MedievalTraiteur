@@ -27,28 +27,36 @@ public class TileUIObject : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        RaycastHit hit = new RaycastHit();
+        Ray ray = Camera.main.ScreenPointToRay(eventData.position);
+        
+        //check if tile is dropped on ui minigame grid
 
         if (MinigameGridManager.Instance.TryTileUpdate(_tileType))
         {
             TileListManager.Instance.RemoveTileFromHand(_tileType);
+            TileListManager.Instance.DoneAddingTiles();
             TileListManager.Instance.OnTilePlaced();
             ScoreManager.Instance.TurnCompleted();
         }
-        //if the tile is dropped on an object with tag "Cashout" then the tile is removed from the hand and the cashout is updated
-        else if (eventData.pointerCurrentRaycast.gameObject.CompareTag("Cashout") && _tileType.IsStructure)
+        else if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.CompareTag("SceneGridTile") && _tileType.IsStructure)
         {
+            Debug.Log("Tile dropped on grid " + _tileType.name);
+                
             ScoreManager.Instance.AddToScore(_tileType.SoulValue);
+            GridManager.Instance.FillTile(hit.transform.gameObject.GetComponentInParent<Tile>(), _tileType);
             TileListManager.Instance.RemoveTileFromHand(_tileType);
             TileListManager.Instance.DoneAddingTiles();
             TileListManager.Instance.OnTilePlaced();
             ScoreManager.Instance.TurnCompleted(false);
         }
+        //if tile is dropped on invalid location return to starting position
         else
         {
             transform.position = _startingPosition;
             _uiImage.raycastTarget = true;
         }
-        
+
     }
 
     public void OnDrag(PointerEventData eventData)

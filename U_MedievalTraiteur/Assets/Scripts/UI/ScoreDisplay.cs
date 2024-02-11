@@ -25,6 +25,11 @@ public class ScoreDisplay: MonoBehaviour
 
     private void UpdateScoreText(int score, int maxScore)
     {
-        _scoreText.text = score.ToString() +"/" + maxScore.ToString();
+        string text = score + "/" + maxScore;
+        if(_scoreText.text != text)
+        {
+            LeanTween.scale(_scoreText.gameObject, new Vector3(1.2f, 1.2f, 1.2f), 0.5f).setEasePunch();
+            _scoreText.text = score +"/" + maxScore;
+        }
     }
 }

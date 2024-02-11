@@ -7,25 +7,21 @@ using System.Linq;
 
 public class GridManager : MonoBehaviour
 {
-    [SerializeField] private int _width;
-    [SerializeField] private int _height;
-    [SerializeField] private int _availableTiles;
-
-    [SerializeField] private TileScriptableObject _lockedTile;
-    [SerializeField] private TileScriptableObject _unlockedTile;
-    [SerializeField] private TileScriptableObject _palaceTile;
-    [SerializeField] private TileScriptableObject _fieldTile;
-
-    [SerializeField] private PatternDefinitionScriptableObject _testPattern;
-    
-    private Dictionary<Vector2, TileScriptableObject> _tileData;
-    private Dictionary<Vector2, Tile> _tileObjects;
-
-    private Vector2 _selectedTilePosition;
-    
     public static GridManager Instance;
     
+    //grid data
+    private Dictionary<Vector2, Tile> _grid = new Dictionary<Vector2, Tile>();
+    [SerializeField] private Tile _tilePrefab;
+    private Tile _selectedTile;
+    [SerializeField] private AmountPopUp _amountPopUpPrefab;
     
+    //quest data
+    private Dictionary<Vector2,GridQuest> _questDictionary = new Dictionary<Vector2, GridQuest>();
+    [SerializeField] private GridQuest _questPrefab;
+    [SerializeField] private float _questSpawnChance = 0.1f;
+    [SerializeField] private int _maxQuests = 3;
+    [SerializeField] private int _questSpawnDistance = 3;
+
     private void Awake()
     {
         Instance = this;
@@ -33,64 +29,234 @@ public class GridManager : MonoBehaviour
 
     private void Start()
     {
-        GenerateGrid();
-
-        // Request the TileListManager to present the first tile
-        //todo temporarily commented to rework the logic, should this really be here?
-        // TileListManager.Instance.OnTilePlaced();
+        SetupGrid();
     }
 
-    private void GenerateGrid()
+    
+    #region normal grid methods
+    private void SetupGrid()
     {
-        _tileData = new Dictionary<Vector2, TileScriptableObject>();
-        _tileObjects = new Dictionary<Vector2, Tile>();
-        for (int x = 0; x < _width; x++)
+        //instantiate first center tile at (0,0)
+        SpawnTileSlot(Vector2.zero);
+    }
+    
+    //method to calculate the positions of open tiles around all the already filled tiles
+    private List<Vector2> GetTilePositionsAroundExistingCluster(List<Vector2> filledTilePositions)
+    {
+        List<Vector2> openTilePositions = new List<Vector2>();
+        foreach (Vector2 filledTilePosition in filledTilePositions)
         {
-            for (int y = 0; y < _height; y++)
+            if (GetTileAtPosition(filledTilePosition).GetTileScriptableObject() != null)
             {
-                Tile tile = Instantiate(_unlockedTile.TilePrefab, new Vector3(x, 0, y), Quaternion.identity);
-                tile.name = $"Tile {x} {y}";
-
-                _tileData[new Vector2(x, y)] = _unlockedTile;
-                _tileObjects[new Vector2(x, y)] = tile;
+                List<Vector2> surroundingPositions = GetSurroundingPositions(filledTilePosition);
+                foreach (Vector2 surroundingPosition in surroundingPositions)
+                {
+                    if (!_grid.ContainsKey(surroundingPosition) && !openTilePositions.Contains(surroundingPosition))
+                    {
+                        openTilePositions.Add(surroundingPosition);
+                    }
+                }
             }
         }
+        return openTilePositions;
+    }
+    
+    //method to refresh the grid by spawning new tile slots at all the new open positions
+    private void RefreshGrid()
+    {
+        List<Vector2> newOpenTilePositions = GetTilePositionsAroundExistingCluster(_grid.Keys.ToList());
+        foreach (Vector2 newOpenTilePosition in newOpenTilePositions)
+        {
+            SpawnTileSlot(newOpenTilePosition);
+        }
+    }
+
+    
+    //method to get the surrounding positions of a given position
+    private List<Vector2> GetSurroundingPositions(Vector2 position)
+    {
+        List<Vector2> surroundingPositions = new List<Vector2>();
+        surroundingPositions.Add(new Vector2(position.x + 1, position.y));
+        surroundingPositions.Add(new Vector2(position.x - 1, position.y));
+        surroundingPositions.Add(new Vector2(position.x, position.y + 1));
+        surroundingPositions.Add(new Vector2(position.x, position.y - 1));
+        return surroundingPositions;
+    }
+    
+    //method to spawn a tile slot at a given position and add it to the grid data. This slot can then be filled with a tile
+    public void SpawnTileSlot(Vector2 position)
+    {
+        Tile newTile = Instantiate(_tilePrefab, new Vector3(position.x, 0, position.y), Quaternion.identity);
+        newTile.SetupTile();
+        _grid.Add(position, newTile);
+    }
+    
+    //method to fill a tile slot at a given position with a tile. This method will be called when a uitile is dragged and dropped onto a tile slot
+    public void FillTileAtPosition(Vector2 position, TileScriptableObject tileScriptableObject)
+    {
+        GetTileAtPosition(position).FillTile(tileScriptableObject);
+        GetTileAtPosition(position).SetupTile();
+        RefreshGrid();
+    }
+    
+    public void FillTile(Tile tile, TileScriptableObject tileScriptableObject)
+    {
+        Vector2 tileposition = _grid.FirstOrDefault(x => x.Value == tile).Key;
         
-        Camera.main.transform.position = new Vector3(Camera.main.transform.position.x + (_width / 2f),Camera.main.transform.position.y+ 0, Camera.main.transform.position.z +(_height / 2f));
+        CheckIfFilledTileCompletesQuestTile(tileposition, tileScriptableObject);
+        tile.FillTile(tileScriptableObject);
+        
+        StartCoroutine(SpawnSoulPopUpCoroutine(tileposition, tileScriptableObject.SoulValue,0));
+
+        tile.SetupTile();
+        if (CheckIfQuestShouldSpawn())
+        {
+            DoQuestGeneration();
+        }
+        RefreshGrid();
+    }
+    
+    public Tile GetTileAtPosition(Vector2 position)
+    {
+        return _grid[position];
+    }
+    
+    //Set selected tile
+    public void SetSelectedTile(Tile tile)
+    {
+        _selectedTile = tile;
+    }
+    
+    //set selected tile to null
+    public void DeselectTile(Tile tile)
+    {
+        if (_selectedTile == tile)
+        {
+            _selectedTile = null;
+        }
+    }
+    
+    #endregion
+    
+    #region quest methods
+    //Check if a quest should be spawned
+    public bool CheckIfQuestShouldSpawn()
+    {
+        if (UnityEngine.Random.Range(0f,1f)<_questSpawnChance && _questDictionary.Count < _maxQuests)
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    public void DoQuestGeneration()
+    {
+        List<Vector2> possibleQuestPositions = GetTilePositionsXAwayFromExistingCluster(_questSpawnDistance);
+        //remove existing quest positions
+        foreach (KeyValuePair<Vector2, GridQuest> quest in _questDictionary)
+        {
+            possibleQuestPositions.Remove(quest.Key);
+        }
+        
+        if (possibleQuestPositions.Count > 0)
+        {
+            Vector2 randomPosition = possibleQuestPositions[UnityEngine.Random.Range(0, possibleQuestPositions.Count)];
+            //get all tiles from Tiles/T1_Buildings folder and spawn a quest with a random tile from that folder
+            TileScriptableObject randomTile = Resources.LoadAll<TileScriptableObject>("Tiles/T1_Buildings")[UnityEngine.Random.Range(0, Resources.LoadAll<TileScriptableObject>("Tiles/T1_Buildings").Length)];
+            SpawnQuest(randomPosition, randomTile);
+        }
+    }
+    
+    
+    //spawn a quest at a given position and add it to the quest dictionary
+    public void SpawnQuest(Vector2 position, TileScriptableObject tileScriptableObject)
+    {
+        GridQuest newQuest = Instantiate(_questPrefab, new Vector3(position.x, 0, position.y), Quaternion.identity);
+        newQuest.SetQuestTile(tileScriptableObject);
+        _questDictionary.Add(position, newQuest);
     }
 
-    public TileScriptableObject GetTileAtPosition(Vector2 position)
+
+    //Get tiles locations that are 2 tiles away from any filled tile
+    public List<Vector2> GetTilePositionsXAwayFromExistingCluster(int amountoftiles)
     {
-        if (_tileData.TryGetValue(Vector2.positiveInfinity, out TileScriptableObject tiledata))
+        List<Vector2> allinternalpositions = new List<Vector2>();
+        allinternalpositions.AddRange(_grid.Keys.ToList());
+        for (int i = 0; i < amountoftiles-1; i++)
         {
-            return tiledata;
+            allinternalpositions.AddRange(GetPositionsAroundThesePositions(allinternalpositions));
         }
 
-        return null;
-    }
-
-    public void TryTileUpdate(TileScriptableObject tileScriptableObject)
-    {
-        SetTileType(_selectedTilePosition, tileScriptableObject);
-    }
-
-    public void SetTileType(Vector2 position, TileScriptableObject tileScriptableObject)
-    {
-        if (position == Vector2.zero)
+        List<Vector2> allpositionsXtilesaway = GetPositionsAroundThesePositions(allinternalpositions);
+        //remove allinternalpositions from allpositionsXtilesaway
+        foreach (Vector2 position in allinternalpositions)
         {
-            return;
+            allpositionsXtilesaway.Remove(position);
         }
-
-        if (_tileObjects.TryGetValue(position, out Tile tile))
-        {
-            Destroy(tile.gameObject);
-            _tileObjects[position] = Instantiate(tileScriptableObject.TilePrefab, new Vector3(position.x, 0, position.y), Quaternion.identity);
-            _tileData[position] = tileScriptableObject;
-        }
+        
+        
+        return allpositionsXtilesaway;
     }
 
-    public void SetSelectedTilePosition(Vector2 position)
+    private List<Vector2> GetPositionsAroundThesePositions(List<Vector2> positions)
     {
-        _selectedTilePosition = position;
+        List<Vector2> allpositions = new List<Vector2>();
+        foreach (Vector2 position in positions)
+        {
+            allpositions.AddRange(GetSurroundingPositions(position));
+        }
+        //remove duplicates
+        allpositions = allpositions.Distinct().ToList();
+        
+        return allpositions;
     }
+
+    //method to remove a quest from the grid
+    
+    public void RemoveQuest(Vector2 position)
+    {
+        _questDictionary[position].DestroyThisQuestTile();
+        _questDictionary.Remove(position);
+    }
+    
+    private void CheckIfFilledTileCompletesQuestTile(Vector2 position, TileScriptableObject tileScriptableObject)
+    {
+        if (_questDictionary.ContainsKey(position))
+        {
+            if (tileScriptableObject != null)
+            {
+                if (tileScriptableObject == _questDictionary[position].GetQuestTileType())
+                {
+                    Debug.Log("Quest Completed");
+                    StartCoroutine(SpawnSoulPopUpCoroutine(position,1, 0.5f));
+                    ScoreManager.Instance.AddToScore(1);
+                    RemoveQuest(position);
+                }
+                else
+                {
+                    Debug.Log("Quest Failed");
+                    //todo: add quest failed logic
+                    RemoveQuest(position);
+                }
+            }
+
+        }
+    }
+
+    #endregion
+    
+    #region SoulPopUpMethods
+
+    //SpawnSoulPopUp Coroutine
+    IEnumerator SpawnSoulPopUpCoroutine(Vector2 position, int amount, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        
+        AmountPopUp newSoulPopUp = Instantiate(_amountPopUpPrefab, new Vector3(position.x, 0, position.y), Quaternion.identity);
+        newSoulPopUp.SetAmount(amount);
+        yield return null;
+    }
+
+    #endregion
+    
 }
