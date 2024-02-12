@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using System.Linq;
+using Random = UnityEngine.Random;
 
 public class GridManager : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class GridManager : MonoBehaviour
     [SerializeField] private float _questSpawnChance = 0.1f;
     [SerializeField] private int _maxQuests = 3;
     [SerializeField] private int _questSpawnDistance = 3;
+    [SerializeField] private string _questResourceFolder = "Tiles/T1_Buildings";
+    [SerializeField] private bool _canDoRandomQuests = true;
+    [SerializeField] private bool _canDoSpecificQuests = true;
 
     private void Awake()
     {
@@ -111,7 +115,7 @@ public class GridManager : MonoBehaviour
         tile.SetupTile();
         if (CheckIfQuestShouldSpawn())
         {
-            DoQuestGeneration();
+            DoQuestGeneration(tile);
         }
         RefreshGrid();
     }
@@ -149,21 +153,49 @@ public class GridManager : MonoBehaviour
         return false;
     }
     
-    public void DoQuestGeneration()
+    public void DoQuestGeneration(Tile tile)
     {
-        List<Vector2> possibleQuestPositions = GetTilePositionsXAwayFromExistingCluster(_questSpawnDistance);
-        //remove existing quest positions
-        foreach (KeyValuePair<Vector2, GridQuest> quest in _questDictionary)
+        //Determined Quest Spawn
+        if (_canDoSpecificQuests && Random.Range(0f,1f)<0.5f && tile.GetTileScriptableObject().QuestsThatCanBeSpawned.Count > 0)
         {
-            possibleQuestPositions.Remove(quest.Key);
+            List<Vector2> possibleQuestPositions = GetSurroundingPositions(_grid.FirstOrDefault(x => x.Value == tile).Key);
+            //remove existing quest positions
+            foreach (KeyValuePair<Vector2, GridQuest> quest in _questDictionary)
+            {
+                possibleQuestPositions.Remove(quest.Key);
+            }
+            //remove filled tile positions
+            foreach (KeyValuePair<Vector2, Tile> filledTile in _grid)
+            {
+                possibleQuestPositions.Remove(filledTile.Key);
+            }
+
+            if (possibleQuestPositions.Count > 0)
+            {
+                Vector2 randomPosition = possibleQuestPositions[UnityEngine.Random.Range(0, possibleQuestPositions.Count)];
+                //get all tiles from Tiles/T1_Buildings folder and spawn a quest with a random tile from that folder
+                TileScriptableObject randomTile = tile.GetTileScriptableObject().QuestsThatCanBeSpawned[UnityEngine.Random.Range(0, tile.GetTileScriptableObject().QuestsThatCanBeSpawned.Count)];
+                SpawnQuest(randomPosition, randomTile);
+            }
+            
         }
-        
-        if (possibleQuestPositions.Count > 0)
+        //Random Quest Spawn
+        else if (_canDoRandomQuests)
         {
-            Vector2 randomPosition = possibleQuestPositions[UnityEngine.Random.Range(0, possibleQuestPositions.Count)];
-            //get all tiles from Tiles/T1_Buildings folder and spawn a quest with a random tile from that folder
-            TileScriptableObject randomTile = Resources.LoadAll<TileScriptableObject>("Tiles/T1_Buildings")[UnityEngine.Random.Range(0, Resources.LoadAll<TileScriptableObject>("Tiles/T1_Buildings").Length)];
-            SpawnQuest(randomPosition, randomTile);
+            List<Vector2> possibleQuestPositions = GetTilePositionsXAwayFromExistingCluster(_questSpawnDistance);
+            //remove existing quest positions
+            foreach (KeyValuePair<Vector2, GridQuest> quest in _questDictionary)
+            {
+                possibleQuestPositions.Remove(quest.Key);
+            }
+        
+            if (possibleQuestPositions.Count > 0)
+            {
+                Vector2 randomPosition = possibleQuestPositions[UnityEngine.Random.Range(0, possibleQuestPositions.Count)];
+                //get all tiles from Tiles/T1_Buildings folder and spawn a quest with a random tile from that folder
+                TileScriptableObject randomTile = Resources.LoadAll<TileScriptableObject>(_questResourceFolder)[UnityEngine.Random.Range(0, Resources.LoadAll<TileScriptableObject>(_questResourceFolder).Length)];
+                SpawnQuest(randomPosition, randomTile);
+            }
         }
     }
     

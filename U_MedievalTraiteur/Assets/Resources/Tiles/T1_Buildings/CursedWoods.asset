@@ -20,3 +20,5 @@ MonoBehaviour:
   TilePrefab: {fileID: 1623662292205880168, guid: f9fd680160b184e758bc7a1efb49370e,
     type: 3}
   UIColor: {r: 1, g: 1, b: 1, a: 1}
+  QuestsThatCanBeSpawned:
+  - {fileID: 11400000}

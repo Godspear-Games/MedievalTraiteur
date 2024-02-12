@@ -20,7 +20,7 @@ public class TileScriptableObject : ScriptableObject
     [AssetSelector(Paths = "Assets/Prefabs/TilePrefabs")]
 
     public GameObject TilePrefab;
-
-
     [FormerlySerializedAs("_uiColor")] public Color UIColor;
+
+    public List<TileScriptableObject> QuestsThatCanBeSpawned;
 }
