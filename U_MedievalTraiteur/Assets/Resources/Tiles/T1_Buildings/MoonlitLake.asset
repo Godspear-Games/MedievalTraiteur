@@ -22,3 +22,5 @@ MonoBehaviour:
   UIColor: {r: 1, g: 1, b: 1, a: 1}
   QuestsThatCanBeSpawned:
   - {fileID: 11400000, guid: 261125f22fb4d2a4aa62ff93280faa1c, type: 2}
+  - {fileID: 11400000, guid: c3c49b23153c6f54fb194099b1e2420a, type: 2}
+  - {fileID: 11400000, guid: 0abb980b45494cf42a223e2b6fe8213f, type: 2}
