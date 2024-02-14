@@ -16,5 +16,11 @@ MonoBehaviour:
   deleteDllAfterBuilds: 1
   AutomateForAllAOTPlatforms: 1
   automateForPlatforms: 0900000014000000
-  lastScan: 0
-  supportSerializedTypes: []
+  lastScan: 638435265910916103
+  supportSerializedTypes:
+  - TypeName: TileScriptableObject, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: TileScriptableObject[,], Assembly-CSharp
+    IsCustom: 0
+    Emit: 1

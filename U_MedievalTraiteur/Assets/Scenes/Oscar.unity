@@ -993,7 +993,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 70.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1353,8 +1353,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b032b3131c5440a985c81dbccb41228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _widthTileAmount: 4
-  _heightTileAmount: 4
+  _widthTileAmount: 3
+  _heightTileAmount: 3
   _tilePrefab: {fileID: 513276170032329087, guid: b828a75150f494a26b3bfe99eac91ebb,
     type: 3}
   _gridLayoutGroup: {fileID: 1340636694}
@@ -1443,7 +1443,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 70.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1559,6 +1559,9 @@ MonoBehaviour:
   _questSpawnChance: 0.5
   _maxQuests: 3
   _questSpawnDistance: 1
+  _questResourceFolder: Tiles/T1_Buildings
+  _canDoRandomQuests: 0
+  _canDoSpecificQuests: 1
 --- !u!4 &2146542937 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4478434020151648519, guid: 3dbfe03e11637cb449e1ea94a11625ef,
