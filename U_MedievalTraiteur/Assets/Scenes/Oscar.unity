@@ -959,6 +959,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: '[PatternManager]'
       objectReference: {fileID: 0}
+    - target: {fileID: 8089723031569097596, guid: 20a96a85979ab4c7391b9fe9b29a5a7f,
+        type: 3}
+      propertyPath: _patternFolder
+      value: Patterns/Pattern_Oscar_Test
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1014,8 +1019,8 @@ MonoBehaviour:
     type: 3}
   _questPrefab: {fileID: 3832349866327244105, guid: 5f8c1bece4cda4175b486f4e585e751d,
     type: 3}
-  _questSpawnChance: 0.7
-  _maxQuests: 5
+  _questSpawnChance: 0.4
+  _maxQuests: 3
   _questSpawnDistance: 1
   _canDoRandomQuests: 1
   _canDoSpecificQuests: 0
