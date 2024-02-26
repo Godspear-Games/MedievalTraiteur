@@ -50,7 +50,7 @@ public class MinigameGridManager : MonoBehaviour
 
     private void LoadPatterns()
     {
-        _patternDefinitions = Resources.LoadAll<PatternDefinitionScriptableObject>("Patterns").ToList();
+        _patternDefinitions = PatternManager.Instance.GetAllPatterns();
     }
 
     #endregion
