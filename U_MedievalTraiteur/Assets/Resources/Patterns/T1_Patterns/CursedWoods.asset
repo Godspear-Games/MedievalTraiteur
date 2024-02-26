@@ -17,6 +17,7 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 11400000, guid: 2f5eb83acad19b7499f86bf54de2ac1b, type: 2}
+    - {fileID: 11400000, guid: 56f2a2e9e55a70442888118c2d1045cb, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -45,19 +46,19 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 10
       Data: 0
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
     - Name: 
       Entry: 6
       Data: 
@@ -85,6 +86,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  IsActive: 1
   PatternName: Cursed woods
   PatternDescription: Cursed woods
   OutputStructure: {fileID: 11400000, guid: 261125f22fb4d2a4aa62ff93280faa1c, type: 2}

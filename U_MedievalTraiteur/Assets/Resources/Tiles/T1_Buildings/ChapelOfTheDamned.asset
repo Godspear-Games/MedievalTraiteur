@@ -16,7 +16,8 @@ MonoBehaviour:
   Name: Chapel of The Damned
   Description: 
   UISprite: {fileID: 21300000, guid: c4981521ddd674ea9adf0009b25d4319, type: 3}
-  SoulValue: 6
+  SoulValue: 10
+  QuestBonusValue: 4
   TilePrefab: {fileID: 1623662292205880168, guid: f9fd680160b184e758bc7a1efb49370e,
     type: 3}
   UIColor: {r: 1, g: 1, b: 1, a: 1}
