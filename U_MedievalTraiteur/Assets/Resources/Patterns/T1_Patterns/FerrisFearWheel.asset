@@ -85,6 +85,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  IsActive: 0
   PatternName: Ferris' Fear Wheel
   PatternDescription: Ferris' Fear Wheel
   OutputStructure: {fileID: 11400000, guid: 20f708cb4912dec43bfdd99a9f2dacd2, type: 2}

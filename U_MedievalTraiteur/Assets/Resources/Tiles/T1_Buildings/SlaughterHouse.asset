@@ -16,7 +16,8 @@ MonoBehaviour:
   Name: Slaughter House
   Description: 
   UISprite: {fileID: 21300000, guid: 15211723c0b4e475b8fe32b39cefd9f6, type: 3}
-  SoulValue: 8
+  SoulValue: 10
+  QuestBonusValue: 4
   TilePrefab: {fileID: 1623662292205880168, guid: f9fd680160b184e758bc7a1efb49370e,
     type: 3}
   UIColor: {r: 1, g: 1, b: 1, a: 1}

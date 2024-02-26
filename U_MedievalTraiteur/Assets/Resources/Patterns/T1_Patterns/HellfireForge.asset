@@ -46,11 +46,8 @@ MonoBehaviour:
       Entry: 6
       Data: 
     - Name: 
-      Entry: 10
-      Data: 1
-    - Name: 
-      Entry: 10
-      Data: 1
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 10
       Data: 1
@@ -60,6 +57,9 @@ MonoBehaviour:
     - Name: 
       Entry: 6
       Data: 
+    - Name: 
+      Entry: 10
+      Data: 1
     - Name: 
       Entry: 10
       Data: 2
@@ -87,6 +87,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  IsActive: 1
   PatternName: Hellfire forge
   PatternDescription: Hellfire forge
   OutputStructure: {fileID: 11400000, guid: 796f71da1985d3d44ad19f5f6a2f80d9, type: 2}

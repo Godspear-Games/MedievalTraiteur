@@ -85,6 +85,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  IsActive: 0
   PatternName: Mirror Palace
   PatternDescription: Mirror Palace
   OutputStructure: {fileID: 11400000, guid: d88d76efb18c4c64ab82112186935173, type: 2}
