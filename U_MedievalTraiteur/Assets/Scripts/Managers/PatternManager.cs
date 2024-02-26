@@ -23,11 +23,7 @@ public class PatternManager : MonoBehaviour
     void Start()
     {
         LoadPatterns();
-        //draw 3 hint patterns
-        for (int i = 0; i < 3; i++)
-        {
-            DrawPatternHint();
-        }
+        StartCoroutine(DelayedHintDrawing());
     }
 
     // Update is called once per frame
@@ -73,6 +69,17 @@ public class PatternManager : MonoBehaviour
     
     private PatternDefinitionScriptableObject GetRandomPattern()
     {
+        Debug.Log("GetRandomPattern() called");
         return _allPatterns[Random.Range(0, _allPatterns.Count)];
+    }
+
+    private IEnumerator DelayedHintDrawing()
+    {
+        yield return new WaitForSeconds(0.25f);
+        //draw 3 hint patterns
+        for (int i = 0; i < 3; i++)
+        {
+            DrawPatternHint();
+        }
     }
 }

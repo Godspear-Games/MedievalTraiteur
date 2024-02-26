@@ -713,6 +713,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7761103594189293570, guid: d7b729b46cc384d16b6732133647e756,
+        type: 3}
+      propertyPath: _tileDeckElements.Array.data[0].Amount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761103594189293570, guid: d7b729b46cc384d16b6732133647e756,
+        type: 3}
+      propertyPath: _tileDeckElements.Array.data[1].Amount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761103594189293570, guid: d7b729b46cc384d16b6732133647e756,
+        type: 3}
+      propertyPath: _tileDeckElements.Array.data[2].Amount
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761103594189293570, guid: d7b729b46cc384d16b6732133647e756,
+        type: 3}
+      propertyPath: _tileDeckElements.Array.data[3].Amount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761103594189293570, guid: d7b729b46cc384d16b6732133647e756,
+        type: 3}
+      propertyPath: _tileDeckElements.Array.data[4].Amount
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7843365656580871451, guid: d7b729b46cc384d16b6732133647e756,
         type: 3}
       propertyPath: m_Name
@@ -962,7 +987,7 @@ PrefabInstance:
     - target: {fileID: 8089723031569097596, guid: 20a96a85979ab4c7391b9fe9b29a5a7f,
         type: 3}
       propertyPath: _patternFolder
-      value: Patterns/Pattern_Oscar_Test
+      value: Patterns/Patterns_Oscar_Test
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1453,10 +1478,10 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 17131448}
   - {fileID: 416098037}
   - {fileID: 2083730085}
   - {fileID: 31169443}
-  - {fileID: 17131448}
   - {fileID: 3847367586207689515}
   - {fileID: 2023507807834191165}
   - {fileID: 6195311199234699875}

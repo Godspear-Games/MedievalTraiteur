@@ -17,9 +17,7 @@ public class MinigameGridManager : MonoBehaviour
     private Dictionary<Vector2, MinigameGridTile> _tileObjects;
 
     private Vector2 _selectedTileKey;
-    
-    private List<PatternDefinitionScriptableObject> _patternDefinitions;
-    
+
     public static MinigameGridManager Instance;
 
     private void Awake()
@@ -27,7 +25,6 @@ public class MinigameGridManager : MonoBehaviour
         PlayerPrefs.DeleteAll();
         _selectedTileKey = new Vector2(-1, -1);
         Instance = this;
-        LoadPatterns();
     }
 
     // Start is called before the first frame update
@@ -45,15 +42,6 @@ public class MinigameGridManager : MonoBehaviour
     {
         
     }
-
-    #region LoadResources
-
-    private void LoadPatterns()
-    {
-        _patternDefinitions = PatternManager.Instance.GetAllPatterns();
-    }
-
-    #endregion
 
     #region Setup Grid
 
@@ -161,7 +149,7 @@ public class MinigameGridManager : MonoBehaviour
         List<ValidFoundPattern> validPatterns = new List<ValidFoundPattern>();
         
         //Check for patterns
-        foreach (PatternDefinitionScriptableObject pattern in _patternDefinitions)
+        foreach (PatternDefinitionScriptableObject pattern in PatternManager.Instance.GetAllPatterns())
         {
             foreach (ValidFoundPattern validfoundpattern in CheckForPatterns(pattern))
             {

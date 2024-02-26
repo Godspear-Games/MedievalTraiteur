@@ -28,6 +28,7 @@ public class RecipeCardsListener : MonoBehaviour, IPointerEnterHandler, IPointer
 
     private void AddHintPattern(PatternDefinitionScriptableObject patternDefinitionScriptableObject)
     {
+        Debug.Log("Adding hint pattern");
         GameObject recipeCard = Instantiate(_recipeCardPrefab, transform);
         recipeCard.GetComponent<RecipeCardUI>().SetupRecipeCard(patternDefinitionScriptableObject);
         _recipeCards.Add(recipeCard, patternDefinitionScriptableObject);
