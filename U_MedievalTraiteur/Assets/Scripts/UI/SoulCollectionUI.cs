@@ -48,6 +48,12 @@ public class SoulCollectionUI : MonoBehaviour
         _restartButton.SetActive(true);
         _panel.SetActive(true);
         _titleText.text = "Only " +score + " souls?! Back to the void you go.";
+        if (score == -1)
+        {
+            _titleText.text =
+                "Seems like you got a little stuck there... I'll send you back to the void so you can ponder about your mistake.";
+        }
+        
         _milestoneText.text = "Maybe the next lucky soul will be able to help me...";
     }
     

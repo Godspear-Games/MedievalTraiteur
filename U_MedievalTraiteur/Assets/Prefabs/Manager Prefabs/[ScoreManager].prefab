@@ -46,4 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _totalScore: 0
   _scoreMilestones: 1e0000003c0000006e000000aa000000f4000000
-  _amountOfTurns: 20
+  _amountOfTurns: 15

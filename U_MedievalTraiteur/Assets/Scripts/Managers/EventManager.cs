@@ -47,4 +47,11 @@ public class EventManager : MonoBehaviour
         OnMilestoneReached?.Invoke(nextmilestone);
     }
 
+    public event Action<PatternDefinitionScriptableObject> OnAddHintPattern;
+    public void AddHintPattern(PatternDefinitionScriptableObject patternDefinitionScriptableObject)
+    {
+        OnAddHintPattern?.Invoke(patternDefinitionScriptableObject);
+    }
+    
+
 }

@@ -156,7 +156,7 @@ public class TileListManager : MonoBehaviour
         RefreshVisualTileList();
         yield return new WaitUntil(() => _visualHandRefreshed);
         Debug.Log("visual hand refresh check passed");
-        
+
         //if deck is now empty, refill and reshuffle
         if (_shuffledTiles.Count == 0)
         {

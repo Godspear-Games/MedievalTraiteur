@@ -175,6 +175,12 @@ public class MinigameGridManager : MonoBehaviour
 
         if (validPatterns.Count <= 0)
         {
+            //check if field is full and do gameover
+            if (_tileData.Values.All(x => x != null))
+            {
+                Debug.Log("Game over");
+                EventManager.Instance.GameOver(-1);
+            }
             TileListManager.Instance.DoneAddingTiles();
             return;
         }
@@ -313,6 +319,18 @@ List<Vector2> CheckPatternAtPosition(Vector2 startPosition, TileScriptableObject
             case 3: return new Vector2(position.x + i, position.y + j);
             default: return position;
         }
+    }
+    
+    public bool IsFieldFilled()
+    {
+        foreach (var tile in _tileData)
+        {
+            if (tile.Value == null)
+            {
+                return false;
+            }
+        }
+        return true;
     }
     #endregion
 

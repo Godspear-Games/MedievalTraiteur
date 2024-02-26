@@ -13,6 +13,8 @@ using UnityEditor;
 
 public class PatternDefinitionScriptableObject : SerializedScriptableObject
 {
+    public bool IsActive = true;
+    
     public string PatternName; 
     public string PatternDescription;
     

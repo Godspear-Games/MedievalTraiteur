@@ -89,6 +89,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  IsActive: 0
   PatternName: Witches coven
   PatternDescription: Witches coven
   OutputStructure: {fileID: 11400000, guid: 8edd934cf7f18154dba1c050b1dd0a0c, type: 2}

@@ -22,7 +22,6 @@ public class GridManager : MonoBehaviour
     [SerializeField] private float _questSpawnChance = 0.1f;
     [SerializeField] private int _maxQuests = 3;
     [SerializeField] private int _questSpawnDistance = 3;
-    [SerializeField] private string _questResourceFolder = "Tiles/T1_Buildings";
     [SerializeField] private bool _canDoRandomQuests = true;
     [SerializeField] private bool _canDoSpecificQuests = true;
 
@@ -192,8 +191,8 @@ public class GridManager : MonoBehaviour
             if (possibleQuestPositions.Count > 0)
             {
                 Vector2 randomPosition = possibleQuestPositions[UnityEngine.Random.Range(0, possibleQuestPositions.Count)];
-                //get all tiles from Tiles/T1_Buildings folder and spawn a quest with a random tile from that folder
-                TileScriptableObject randomTile = Resources.LoadAll<TileScriptableObject>(_questResourceFolder)[UnityEngine.Random.Range(0, Resources.LoadAll<TileScriptableObject>(_questResourceFolder).Length)];
+                //get random tile from PatternManager.Instance.GetPossibleQuestPatterns() and spawn a quest with that tile
+                TileScriptableObject randomTile = PatternManager.Instance.GetPossibleQuestPatterns()[Random.Range(0, PatternManager.Instance.GetPossibleQuestPatterns().Count)].OutputStructure;
                 SpawnQuest(randomPosition, randomTile);
             }
         }
@@ -261,7 +260,7 @@ public class GridManager : MonoBehaviour
                 {
                     Debug.Log("Quest Completed");
                     StartCoroutine(SpawnSoulPopUpCoroutine(position,1, 0.5f));
-                    ScoreManager.Instance.AddToScore(1);
+                    ScoreManager.Instance.AddToScore(tileScriptableObject.QuestBonusValue);
                     RemoveQuest(position);
                 }
                 else

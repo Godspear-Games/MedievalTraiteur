@@ -17,6 +17,7 @@ public class TileScriptableObject : ScriptableObject
     public Sprite UISprite;
     
     public int SoulValue;
+    public int QuestBonusValue;
     [AssetSelector(Paths = "Assets/Prefabs/TilePrefabs")]
 
     public GameObject TilePrefab;
