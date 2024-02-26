@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -993,7 +993,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 70.95
+  m_fontSize: 65.15
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1443,7 +1443,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 70.95
+  m_fontSize: 65.15
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1556,12 +1556,12 @@ MonoBehaviour:
     type: 3}
   _questPrefab: {fileID: 3832349866327244105, guid: 5f8c1bece4cda4175b486f4e585e751d,
     type: 3}
-  _questSpawnChance: 0.5
-  _maxQuests: 3
+  _questSpawnChance: 0.7
+  _maxQuests: 5
   _questSpawnDistance: 1
   _questResourceFolder: Tiles/T1_Buildings
-  _canDoRandomQuests: 0
-  _canDoSpecificQuests: 1
+  _canDoRandomQuests: 1
+  _canDoSpecificQuests: 0
 --- !u!4 &2146542937 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4478434020151648519, guid: 3dbfe03e11637cb449e1ea94a11625ef,
@@ -1802,7 +1802,7 @@ PrefabInstance:
     - target: {fileID: 8506210028227027612, guid: c304da95d17f34aae9df975b8945d282,
         type: 3}
       propertyPath: _scoreMilestones.Array.size
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8506210028227027612, guid: c304da95d17f34aae9df975b8945d282,
         type: 3}
@@ -1812,12 +1812,12 @@ PrefabInstance:
     - target: {fileID: 8506210028227027612, guid: c304da95d17f34aae9df975b8945d282,
         type: 3}
       propertyPath: _scoreMilestones.Array.data[1]
-      value: 40
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 8506210028227027612, guid: c304da95d17f34aae9df975b8945d282,
         type: 3}
       propertyPath: _scoreMilestones.Array.data[2]
-      value: 70
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 8506210028227027612, guid: c304da95d17f34aae9df975b8945d282,
         type: 3}
@@ -1827,22 +1827,32 @@ PrefabInstance:
     - target: {fileID: 8506210028227027612, guid: c304da95d17f34aae9df975b8945d282,
         type: 3}
       propertyPath: _scoreMilestones.Array.data[4]
-      value: 160
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 8506210028227027612, guid: c304da95d17f34aae9df975b8945d282,
         type: 3}
       propertyPath: _scoreMilestones.Array.data[5]
-      value: 220
+      value: 195
       objectReference: {fileID: 0}
     - target: {fileID: 8506210028227027612, guid: c304da95d17f34aae9df975b8945d282,
         type: 3}
       propertyPath: _scoreMilestones.Array.data[6]
-      value: 290
+      value: 245
       objectReference: {fileID: 0}
     - target: {fileID: 8506210028227027612, guid: c304da95d17f34aae9df975b8945d282,
         type: 3}
       propertyPath: _scoreMilestones.Array.data[7]
-      value: 370
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 8506210028227027612, guid: c304da95d17f34aae9df975b8945d282,
+        type: 3}
+      propertyPath: _scoreMilestones.Array.data[8]
+      value: 360
+      objectReference: {fileID: 0}
+    - target: {fileID: 8506210028227027612, guid: c304da95d17f34aae9df975b8945d282,
+        type: 3}
+      propertyPath: _scoreMilestones.Array.data[9]
+      value: 425
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1866,6 +1876,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5369678310354977917, guid: c9f97ec3da10b4c7599b8d43b0628314,
+        type: 3}
+      propertyPath: m_text
+      value: Next time I want X souls.
       objectReference: {fileID: 0}
     - target: {fileID: 7694816907447151909, guid: c9f97ec3da10b4c7599b8d43b0628314,
         type: 3}
