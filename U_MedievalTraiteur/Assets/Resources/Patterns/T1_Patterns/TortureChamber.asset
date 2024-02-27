@@ -87,6 +87,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  IsActive: 1
   PatternName: Torture chamber
   PatternDescription: Torture chamber
   OutputStructure: {fileID: 11400000, guid: ddeee94de69f2d74681b3ddec57c9830, type: 2}

@@ -86,7 +86,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  IsActive: 1
+  IsActive: 0
   PatternName: Gothic crypt
   PatternDescription: Gothic crypt
   OutputStructure: {fileID: 11400000, guid: 86acaa1b18a55f843ba9095c72cf2c8a, type: 2}

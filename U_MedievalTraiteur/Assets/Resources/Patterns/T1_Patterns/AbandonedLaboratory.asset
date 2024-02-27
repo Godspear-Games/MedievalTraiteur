@@ -87,6 +87,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  IsActive: 1
   PatternName: Abandoned laboratory
   PatternDescription: Abandoned laboratory
   OutputStructure: {fileID: 11400000, guid: 9d820c88b2a5b644d9449e70bec7036d, type: 2}

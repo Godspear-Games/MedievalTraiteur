@@ -87,6 +87,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  IsActive: 0
   PatternName: Chapel of the damned
   PatternDescription: Chapel of the damned
   OutputStructure: {fileID: 11400000, guid: dd5f63dec504ec64c84ab89375c910ec, type: 2}

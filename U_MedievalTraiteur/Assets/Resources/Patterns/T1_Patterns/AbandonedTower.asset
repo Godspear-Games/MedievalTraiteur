@@ -86,7 +86,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  IsActive: 1
+  IsActive: 0
   PatternName: Abandoned Tower
   PatternDescription: Abandoned Tower
   OutputStructure: {fileID: 11400000, guid: 0abb980b45494cf42a223e2b6fe8213f, type: 2}

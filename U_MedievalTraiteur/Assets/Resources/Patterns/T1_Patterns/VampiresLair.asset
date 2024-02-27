@@ -87,6 +87,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  IsActive: 0
   PatternName: Vampire's lair
   PatternDescription: Vampire's lair
   OutputStructure: {fileID: 11400000, guid: 998eb63fcece00245acb425258484c58, type: 2}

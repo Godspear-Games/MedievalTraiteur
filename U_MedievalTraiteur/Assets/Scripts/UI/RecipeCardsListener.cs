@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class RecipeCardsListener : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class RecipeCardsListener : MonoBehaviour
 {
     [SerializeField] private GameObject _recipeCardPrefab = null;
     private Dictionary<GameObject, PatternDefinitionScriptableObject> _recipeCards = new Dictionary<GameObject, PatternDefinitionScriptableObject>();
@@ -13,7 +13,7 @@ public class RecipeCardsListener : MonoBehaviour, IPointerEnterHandler, IPointer
     private void Start()
     {
         EventManager.Instance.OnAddHintPattern += AddHintPattern;
-        LowerCards();
+        //LowerCards(); //temporarily disabled this feature for testing purposes
     }
 
     private void OnDisable()
@@ -61,6 +61,9 @@ public class RecipeCardsListener : MonoBehaviour, IPointerEnterHandler, IPointer
         }
     }
     
+    //temporarily disbled this feature for testing purposes
+
+    /*
     private void LowerCards()
     {
         LeanTween.cancel(gameObject);
@@ -81,5 +84,5 @@ public class RecipeCardsListener : MonoBehaviour, IPointerEnterHandler, IPointer
     public void OnPointerExit(PointerEventData eventData)
     {
         LowerCards();
-    }
+    } */
 }

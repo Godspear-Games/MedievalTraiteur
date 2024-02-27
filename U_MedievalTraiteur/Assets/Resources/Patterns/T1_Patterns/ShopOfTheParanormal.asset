@@ -87,6 +87,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  IsActive: 0
   PatternName: Shop of the paranormal
   PatternDescription: Shop of the paranormal
   OutputStructure: {fileID: 11400000, guid: 5f0d58f4424ed8049a144ca036e1cb4f, type: 2}
