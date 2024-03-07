@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class RecipeDisplayUI : MonoBehaviour
 {
+    [SerializeField] private bool _showTiles = true;
     [SerializeField] private GridLayoutGroup _recipegrid;
     
     public void ShowRecipe(PatternDefinitionScriptableObject patternDefinitionScriptableObject)
@@ -67,6 +68,14 @@ public class RecipeDisplayUI : MonoBehaviour
                 if (inputTiles[i][j] != null)
                 {
                     tile.GetComponent<Image>().sprite = inputTiles[i][j].UISprite;
+                    if (_showTiles)
+                    {
+                        tile.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+                    }
+                    else
+                    {
+                        tile.GetComponent<Image>().color = new Color(0, 0, 0, 1);
+                    }
                 }
                 else
                 {

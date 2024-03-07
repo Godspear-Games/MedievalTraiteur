@@ -172,9 +172,12 @@ public class GridManager : MonoBehaviour
             if (possibleQuestPositions.Count > 0)
             {
                 Vector2 randomPosition = possibleQuestPositions[UnityEngine.Random.Range(0, possibleQuestPositions.Count)];
-                //get all tiles from Tiles/T1_Buildings folder and spawn a quest with a random tile from that folder
+                //get all patterns from Tiles/T1_Buildings folder and spawn a quest with a random tile from that folder
                 TileScriptableObject randomTile = tile.GetTileScriptableObject().QuestsThatCanBeSpawned[UnityEngine.Random.Range(0, tile.GetTileScriptableObject().QuestsThatCanBeSpawned.Count)];
-                SpawnQuest(randomPosition, randomTile);
+                
+                //get the pattern that has this tile as outputstructure
+                PatternDefinitionScriptableObject randomPattern = PatternManager.Instance.GetAllPatterns().FirstOrDefault(x => x.OutputStructure == randomTile);
+                SpawnQuest(randomPosition, randomPattern);
             }
             
         }
@@ -192,18 +195,18 @@ public class GridManager : MonoBehaviour
             {
                 Vector2 randomPosition = possibleQuestPositions[UnityEngine.Random.Range(0, possibleQuestPositions.Count)];
                 //get random tile from PatternManager.Instance.GetPossibleQuestPatterns() and spawn a quest with that tile
-                TileScriptableObject randomTile = PatternManager.Instance.GetPossibleQuestPatterns()[Random.Range(0, PatternManager.Instance.GetPossibleQuestPatterns().Count)].OutputStructure;
-                SpawnQuest(randomPosition, randomTile);
+                PatternDefinitionScriptableObject randomPattern = PatternManager.Instance.GetPossibleQuestPatterns()[Random.Range(0, PatternManager.Instance.GetPossibleQuestPatterns().Count)];
+                SpawnQuest(randomPosition, randomPattern);
             }
         }
     }
     
     
     //spawn a quest at a given position and add it to the quest dictionary
-    public void SpawnQuest(Vector2 position, TileScriptableObject tileScriptableObject)
+    public void SpawnQuest(Vector2 position, PatternDefinitionScriptableObject pattern)
     {
         GridQuest newQuest = Instantiate(_questPrefab, new Vector3(position.x, 0, position.y), Quaternion.identity);
-        newQuest.SetQuestTile(tileScriptableObject);
+        newQuest.SetQuestTile(pattern);
         _questDictionary.Add(position, newQuest);
     }
 

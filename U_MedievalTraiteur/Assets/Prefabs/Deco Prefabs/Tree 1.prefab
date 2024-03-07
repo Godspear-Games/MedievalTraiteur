@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6967286492817258635}
   - component: {fileID: 6063449986000393801}
   - component: {fileID: 5766272839692387303}
+  - component: {fileID: 2753540564747597651}
   m_Layer: 0
   m_Name: Trees 1
   m_TagString: Untagged
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ed3941636b5dc4a9cbb300ea7042da1c, type: 3}
-  m_Color: {r: 0.53333336, g: 1, b: 0.60784316, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.98039216, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -101,6 +102,19 @@ MonoBehaviour:
   - {r: 0, g: 1, b: 0.98039216, a: 1}
   - {r: 0.59607846, g: 0.59607846, b: 0.59607846, a: 1}
   - {r: 0.53333336, g: 1, b: 0.60784316, a: 1}
+--- !u!114 &2753540564747597651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7476790164595218502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccfba8648c69b499e9645088a8101b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sortingAddition: 0
 --- !u!1 &7646209408881833289
 GameObject:
   m_ObjectHideFlags: 0

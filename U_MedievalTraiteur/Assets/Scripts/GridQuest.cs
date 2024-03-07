@@ -8,12 +8,14 @@ public class GridQuest : MonoBehaviour
     private TileScriptableObject _questTileType;
     [SerializeField] private Image _questTileImage;
     [SerializeField] private Transform _questTileModel;
+    [SerializeField] private RecipeDisplayUI _recipeDisplayUI;
     
-    public void SetQuestTile(TileScriptableObject tileScriptableObject)
+    public void SetQuestTile(PatternDefinitionScriptableObject patternDefinitionScriptableObject)
     {
-        _questTileType = tileScriptableObject;
-        _questTileImage.sprite = tileScriptableObject.UISprite;
+        _questTileType = patternDefinitionScriptableObject.OutputStructure;
+        _questTileImage.sprite = patternDefinitionScriptableObject.OutputStructure.UISprite;
         _questTileModel.localScale = Vector3.zero;
+        _recipeDisplayUI.ShowRecipe(patternDefinitionScriptableObject);
         LeanTween.scale(_questTileModel.gameObject, Vector3.one, 0.25f).setEaseOutBack();
     }
 

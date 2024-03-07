@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 931511173491379468}
   - component: {fileID: 5242886646589047929}
   m_Layer: 0
-  m_Name: Tile Abandoned Castle
+  m_Name: Tile Haunted House
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -241,9 +241,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4343660441578564304}
   - component: {fileID: 4969810749765498608}
-  - component: {fileID: 5165807887529748060}
+  - component: {fileID: 8839827423577641398}
   m_Layer: 0
-  m_Name: Castle
+  m_Name: Haunted House
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -305,7 +305,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 94d0afd025138473c81e042cd4854b06, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 97f77cbf215444bd68192a899f6e638b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -316,7 +316,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!114 &5165807887529748060
+--- !u!114 &8839827423577641398
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

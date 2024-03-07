@@ -79,7 +79,7 @@ public class PatternManager : MonoBehaviour
         //draw 3 hint patterns
         for (int i = 0; i < 3; i++)
         {
-            DrawPatternHint();
+            //DrawPatternHint();
         }
     }
 }
