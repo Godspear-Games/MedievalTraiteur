@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -613,12 +613,7 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 799504561827039280, guid: d7b729b46cc384d16b6732133647e756,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 524
-      objectReference: {fileID: 0}
-    - target: {fileID: 1093744581715594926, guid: d7b729b46cc384d16b6732133647e756,
+    - target: {fileID: 3276738553566638218, guid: d7b729b46cc384d16b6732133647e756,
         type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -723,65 +718,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7002835259736877132, guid: d7b729b46cc384d16b6732133647e756,
-        type: 3}
-      propertyPath: _widthTileAmount
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002835259736877132, guid: d7b729b46cc384d16b6732133647e756,
-        type: 3}
-      propertyPath: _heightTileAmount
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7593826455747938901, guid: d7b729b46cc384d16b6732133647e756,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 70.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 7593826455747938901, guid: d7b729b46cc384d16b6732133647e756,
-        type: 3}
-      propertyPath: m_fontColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7593826455747938901, guid: d7b729b46cc384d16b6732133647e756,
-        type: 3}
-      propertyPath: m_fontColor.g
-      value: 0.44935164
-      objectReference: {fileID: 0}
-    - target: {fileID: 7593826455747938901, guid: d7b729b46cc384d16b6732133647e756,
-        type: 3}
-      propertyPath: m_fontColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7593826455747938901, guid: d7b729b46cc384d16b6732133647e756,
-        type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4278219775
-      objectReference: {fileID: 0}
     - target: {fileID: 7761103594189293570, guid: d7b729b46cc384d16b6732133647e756,
         type: 3}
       propertyPath: _tileDeckElements.Array.data[0].Amount
-      value: 8
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7761103594189293570, guid: d7b729b46cc384d16b6732133647e756,
         type: 3}
       propertyPath: _tileDeckElements.Array.data[1].Amount
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7761103594189293570, guid: d7b729b46cc384d16b6732133647e756,
         type: 3}
       propertyPath: _tileDeckElements.Array.data[2].Amount
-      value: 9
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7761103594189293570, guid: d7b729b46cc384d16b6732133647e756,
         type: 3}
       propertyPath: _tileDeckElements.Array.data[3].Amount
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7761103594189293570, guid: d7b729b46cc384d16b6732133647e756,
         type: 3}
       propertyPath: _tileDeckElements.Array.data[4].Amount
-      value: 9
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7843365656580871451, guid: d7b729b46cc384d16b6732133647e756,
         type: 3}
@@ -1029,6 +989,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: '[PatternManager]'
       objectReference: {fileID: 0}
+    - target: {fileID: 8089723031569097596, guid: 20a96a85979ab4c7391b9fe9b29a5a7f,
+        type: 3}
+      propertyPath: _patternFolder
+      value: Patterns/Patterns_Oscar_Test
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1084,8 +1049,8 @@ MonoBehaviour:
     type: 3}
   _questPrefab: {fileID: 3832349866327244105, guid: 5f8c1bece4cda4175b486f4e585e751d,
     type: 3}
-  _questSpawnChance: 0.7
-  _maxQuests: 5
+  _questSpawnChance: 0.4
+  _maxQuests: 3
   _questSpawnDistance: 1
   _canDoRandomQuests: 1
   _canDoSpecificQuests: 0
@@ -1103,6 +1068,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4868185349154040149, guid: 410fd946fb49b4e63a513ae61d66ef80,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4868185349154040149, guid: 410fd946fb49b4e63a513ae61d66ef80,
         type: 3}
       propertyPath: m_StartAxis
@@ -1131,6 +1101,16 @@ PrefabInstance:
     - target: {fileID: 5561753789791906627, guid: 410fd946fb49b4e63a513ae61d66ef80,
         type: 3}
       propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5561753789791906627, guid: 410fd946fb49b4e63a513ae61d66ef80,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6810576511427630893, guid: 410fd946fb49b4e63a513ae61d66ef80,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6850790683838461270, guid: 410fd946fb49b4e63a513ae61d66ef80,
@@ -1233,6 +1213,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7023894067591219315, guid: 410fd946fb49b4e63a513ae61d66ef80,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7123611809151187839, guid: 410fd946fb49b4e63a513ae61d66ef80,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1329,7 +1314,7 @@ PrefabInstance:
     - target: {fileID: 8506210028227027612, guid: c304da95d17f34aae9df975b8945d282,
         type: 3}
       propertyPath: _scoreMilestones.Array.size
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8506210028227027612, guid: c304da95d17f34aae9df975b8945d282,
         type: 3}
@@ -1364,17 +1349,17 @@ PrefabInstance:
     - target: {fileID: 8506210028227027612, guid: c304da95d17f34aae9df975b8945d282,
         type: 3}
       propertyPath: _scoreMilestones.Array.data[6]
-      value: 250
+      value: 245
       objectReference: {fileID: 0}
     - target: {fileID: 8506210028227027612, guid: c304da95d17f34aae9df975b8945d282,
         type: 3}
       propertyPath: _scoreMilestones.Array.data[7]
-      value: 135
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 8506210028227027612, guid: c304da95d17f34aae9df975b8945d282,
         type: 3}
       propertyPath: _scoreMilestones.Array.data[8]
-      value: 135
+      value: 360
       objectReference: {fileID: 0}
     - target: {fileID: 8506210028227027612, guid: c304da95d17f34aae9df975b8945d282,
         type: 3}
@@ -1518,10 +1503,10 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 17131448}
   - {fileID: 416098037}
   - {fileID: 2083730085}
   - {fileID: 31169443}
-  - {fileID: 17131448}
   - {fileID: 3847367586207689515}
   - {fileID: 2023507807834191165}
   - {fileID: 6195311199234699875}
