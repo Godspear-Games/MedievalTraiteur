@@ -37,6 +37,7 @@ public class TileUIObject : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
             TileListManager.Instance.RemoveTileFromHand(_tileType);
             TileListManager.Instance.DoneAddingTiles();
             TileListManager.Instance.OnTilePlaced();
+            //turn off to disable turn-based
             ScoreManager.Instance.TurnCompleted();
         }
         else if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.CompareTag("SceneGridTile") && _tileType.IsStructure)
@@ -48,6 +49,7 @@ public class TileUIObject : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
             TileListManager.Instance.RemoveTileFromHand(_tileType);
             TileListManager.Instance.DoneAddingTiles();
             TileListManager.Instance.OnTilePlaced();
+            //turn off to disable turn-based
             ScoreManager.Instance.TurnCompleted(false);
         }
         //if tile is dropped on invalid location return to starting position

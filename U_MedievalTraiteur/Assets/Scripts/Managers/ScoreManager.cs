@@ -22,6 +22,8 @@ public class ScoreManager : MonoBehaviour
     {
         _totalScore += score;
         EventManager.Instance.UpdateScore(_totalScore, _scoreMilestones[_currentMilestone]);
+        //CheckMileStone is needed for the new idea
+        //CheckMilestone();
     }
 
     public int GetScore()
@@ -29,6 +31,21 @@ public class ScoreManager : MonoBehaviour
         return _totalScore;
     }
     
+    //Instead of turns, you only need to reach milestones
+    /*private void CheckMilestone()
+    {
+        if (_currentMilestone < _scoreMilestones.Count && _totalScore >= _scoreMilestones[_currentMilestone])
+        {
+            _currentMilestone++;
+            EventManager.Instance.MilestoneReached(_scoreMilestones[_currentMilestone]);
+        }
+
+        if (_currentMilestone >= _scoreMilestones.Count)
+        {
+            EventManager.Instance.GameOver(_totalScore);
+        }
+    }*/
+
     public void TurnCompleted(bool isvalidturn = true)
     {
         if (isvalidturn)
