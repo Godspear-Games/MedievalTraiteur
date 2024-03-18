@@ -22,6 +22,8 @@ public class ScoreManager : MonoBehaviour
     {
         _totalScore += score;
         EventManager.Instance.UpdateScore(_totalScore, _scoreMilestones[_currentMilestone]);
+        //CheckMileStone is needed for the new idea
+        //CheckMilestone();
     }
 
     public int GetScore()
@@ -29,6 +31,57 @@ public class ScoreManager : MonoBehaviour
         return _totalScore;
     }
     
+    //REACH THE QUOTA TO SUCCEED
+    /*private void CheckMilestone()
+    {
+        if (_currentMilestone < _scoreMilestones.Count && _totalScore >= _scoreMilestones[_currentMilestone])
+        {
+            _currentMilestone++;
+            EventManager.Instance.MilestoneReached(_scoreMilestones[_currentMilestone]);
+        }
+
+        if (_currentMilestone >= _scoreMilestones.Count)
+        {
+            EventManager.Instance.GameOver(_totalScore);
+        }
+    }*/
+
+    //REACH THE QUOTA BUT YOU DONT HAVE TO WAIT TILL THE FINAL TURN TO SUCCEED
+    public void TurnCompleted(bool isvalidturn = true)
+    {
+        if (isvalidturn)
+        {
+            _turnCounter++;
+        }
+        EventManager.Instance.UpdateTurnCounter(_turnCounter, _amountOfTurns);
+
+        // Check if the total score meets or exceeds the milestone
+        if (_totalScore >= _scoreMilestones[_currentMilestone])
+        {
+            _currentMilestone++;
+            _turnCounter = 0;
+            // Send milestone reached event
+            EventManager.Instance.MilestoneReached(_scoreMilestones[_currentMilestone]);
+
+            // Check if all milestones are reached
+            if (_currentMilestone >= _scoreMilestones.Count)
+            {
+                // Send game over event indicating success
+                EventManager.Instance.GameOver(_totalScore);
+                return;
+            }
+        }
+
+        // Check if all turns are completed
+        if (_turnCounter > _amountOfTurns)
+        {
+            // Send game over event indicating failure
+            EventManager.Instance.GameOver(_totalScore);
+        }
+    }
+
+    //REACH THE QUOTA BUT WAIT TILL THE FINAL TURN TO SUCCEED
+    /*
     public void TurnCompleted(bool isvalidturn = true)
     {
         if (isvalidturn)
@@ -51,6 +104,6 @@ public class ScoreManager : MonoBehaviour
                 EventManager.Instance.GameOver(_totalScore);
             }
         }
-    }
+    }*/
     
 }
