@@ -1,5 +1,9 @@
+2.3.7
+
+Fixed:
+- Script compile errors when using the Built-in RP but the "Core RP Library" package was also installed.
+
 2.3.6
-This is the last version supporting Unity 2020.3
 
 Added:
 - (URP) Support for switching between a 3D and 2D renderer, or switching rendering paths.

@@ -18,7 +18,7 @@ MonoBehaviour:
   UISprite: {fileID: 21300000, guid: 604812c10f023472ca7779ebb30ec85d, type: 3}
   SoulValue: 13
   QuestBonusValue: 5
-  TilePrefab: {fileID: 1623662292205880168, guid: ea787b18861e74163bf3541d9ade2942,
+  TilePrefab: {fileID: 2640028908362215725, guid: a74868fa9a84f48658777bd4a6091c5d,
     type: 3}
   UIColor: {r: 0, g: 0, b: 0, a: 0}
   QuestsThatCanBeSpawned: []

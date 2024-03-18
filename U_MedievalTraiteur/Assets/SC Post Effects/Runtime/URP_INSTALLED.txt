@@ -1,4 +1,4 @@
-2.3.6
+2.3.7
 
 If I'm here it means the URP package was unpacked and installer shouldn't be prompted when importing while the URP is active.
 

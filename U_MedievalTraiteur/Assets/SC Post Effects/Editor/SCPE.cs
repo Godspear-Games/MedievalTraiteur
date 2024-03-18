@@ -34,7 +34,7 @@ namespace SCPE
         public const string ASSET_ID = "108753";
         public const string ASSET_ABRV = "SCPE";
 
-        public const string INSTALLED_VERSION = "2.3.6";
+        public const string INSTALLED_VERSION = "2.3.7";
 
         public const string MIN_UNITY_VERSION = "2020.3.0";
 

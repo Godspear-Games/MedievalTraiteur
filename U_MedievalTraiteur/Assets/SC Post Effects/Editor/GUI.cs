@@ -14,7 +14,7 @@ using UnityEditor.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEditor.Rendering.Universal;
 
-using UnityEngine.Experimental.Rendering.Universal;
+
 #endif
 
 #if XR
@@ -156,19 +156,14 @@ namespace SCPE
             int defaultRendererIndex = (int)typeof(UniversalRenderPipelineAsset).GetField("m_DefaultRendererIndex", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(UniversalRenderPipeline.asset);
             ScriptableRendererData forwardRenderer = rendererDataList[defaultRendererIndex];
             
-            bool is2D = forwardRenderer.GetType() == typeof(Renderer2DData);
-            #if !UNITY_2021_2_OR_NEWER
-            if (is2D)
-            {
-                EditorGUILayout.HelpBox("Support for the 2D renderer requires Unity 2021.2.0 or newer.", MessageType.Error);
-                return;
-            }
-            #endif
+            #if UNITY_2021_2_OR_NEWER
+            bool is2D = forwardRenderer.GetType() != typeof(UniversalRenderer);
 
             if (is2D && !compatible2D)
             {
                 EditorGUILayout.HelpBox("This effect has limited or no practical purpose for 2D rendering", MessageType.Error);
             }
+            #endif
             
             if (state) return;
 
