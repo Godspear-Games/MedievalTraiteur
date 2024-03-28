@@ -10,22 +10,6 @@ public class RecipeCardsListener : MonoBehaviour
     [SerializeField] private GameObject _recipeCardPrefab = null;
     private Dictionary<GameObject, PatternDefinitionScriptableObject> _recipeCards = new Dictionary<GameObject, PatternDefinitionScriptableObject>();
 
-    private void Start()
-    {
-        EventManager.Instance.OnAddHintPattern += AddHintPattern;
-        //LowerCards(); //temporarily disabled this feature for testing purposes
-    }
-
-    private void OnDisable()
-    {
-        EventManager.Instance.OnAddHintPattern -= AddHintPattern;
-    }
-
-    private void OnDestroy()
-    {
-        EventManager.Instance.OnAddHintPattern -= AddHintPattern;
-    }
-
     private void AddHintPattern(PatternDefinitionScriptableObject patternDefinitionScriptableObject)
     {
         Debug.Log("Adding hint pattern");

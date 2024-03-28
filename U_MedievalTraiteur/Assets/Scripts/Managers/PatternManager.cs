@@ -11,29 +11,16 @@ public class PatternManager : MonoBehaviour
     
     [SerializeField] private string _patternFolder = "Patterns";
     private List<PatternDefinitionScriptableObject> _allPatterns = new List<PatternDefinitionScriptableObject>();
-
-    private List<PatternDefinitionScriptableObject> _hintPatterns = new List<PatternDefinitionScriptableObject>();
+    
 
     private void Awake()
     {
         Instance = this;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
         LoadPatterns();
-        StartCoroutine(DelayedHintDrawing());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     //load all patterns from the resources folder
-    private void LoadPatterns()
+    public void LoadPatterns()
     {
         //load all patterns that have _isActive set to true
         _allPatterns = Resources.LoadAll<PatternDefinitionScriptableObject>(_patternFolder).Where(x => x.IsActive).ToList();
@@ -46,40 +33,14 @@ public class PatternManager : MonoBehaviour
     }
 
     //return all patterns that aren't hint patterns
-    public List<PatternDefinitionScriptableObject> GetPossibleQuestPatterns()
+    public List<PatternDefinitionScriptableObject> GetPossibleOrderPatterns()
     {
-        return _allPatterns.Except(_hintPatterns).ToList();
+        return _allPatterns.ToList();
     }
-    
-    //add a pattern to the hint patterns
-    private void DrawPatternHint()
-    {
-        PatternDefinitionScriptableObject newhintpattern = GetRandomPattern();
-        if (_hintPatterns.Contains(newhintpattern))
-        {
-            DrawPatternHint();
-        }
-        else
-        {
-            _hintPatterns.Add(newhintpattern);
-            //send event to update the UI
-            EventManager.Instance.AddHintPattern(newhintpattern);
-        }
-    }
-    
+
     private PatternDefinitionScriptableObject GetRandomPattern()
     {
         Debug.Log("GetRandomPattern() called");
         return _allPatterns[Random.Range(0, _allPatterns.Count)];
-    }
-
-    private IEnumerator DelayedHintDrawing()
-    {
-        yield return new WaitForSeconds(0.25f);
-        //draw 3 hint patterns
-        for (int i = 0; i < 3; i++)
-        {
-            //DrawPatternHint();
-        }
     }
 }

@@ -32,25 +32,20 @@ public class TileUIObject : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
         
         //check if tile is dropped on ui minigame grid
 
-        if (MinigameGridManager.Instance.TryTileUpdate(_tileType))
-        {
-            TileListManager.Instance.RemoveTileFromHand(_tileType);
-            TileListManager.Instance.DoneAddingTiles();
-            TileListManager.Instance.OnTilePlaced();
-            //turn off to disable turn-based
-            ScoreManager.Instance.TurnCompleted();
-        }
-        else if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.CompareTag("SceneGridTile") && _tileType.IsStructure)
+        if (CookingGridManager.Instance.TryTileUpdate(_tileType))
         {
             Debug.Log("Tile dropped on grid " + _tileType.name);
-                
-            ScoreManager.Instance.AddToScore(_tileType.SoulValue);
-            GridManager.Instance.FillTile(hit.transform.gameObject.GetComponentInParent<Tile>(), _tileType);
-            TileListManager.Instance.RemoveTileFromHand(_tileType);
-            TileListManager.Instance.DoneAddingTiles();
-            TileListManager.Instance.OnTilePlaced();
-            //turn off to disable turn-based
-            ScoreManager.Instance.TurnCompleted(false);
+            IngredientBenchManager.Instance.RemoveTileFromHand(_tileType);
+            Destroy(gameObject);
+            IngredientBenchManager.Instance.RefillHand();
+            IngredientBenchManager.Instance.RefreshVisualTileList();
+        }
+        else if (OrderManager.Instance.TryCompleteOrder(_tileType))
+        {
+            Debug.Log("Tile dropped on order " + _tileType.name);
+            DishBenchManager.Instance.RemoveDishFromBench(_tileType);
+            Destroy(gameObject);
+            DishBenchManager.Instance.RefreshVisualTileList();
         }
         //if tile is dropped on invalid location return to starting position
         else

@@ -14,8 +14,8 @@ public class RecipeCardUI : MonoBehaviour
     public void SetupRecipeCard(PatternDefinitionScriptableObject patternDefinitionScriptableObject)
     {
         _recipeDisplayUI.ShowRecipe(patternDefinitionScriptableObject);
-        _tileImage.sprite = patternDefinitionScriptableObject.OutputStructure.UISprite;
-        _name.text = patternDefinitionScriptableObject.OutputStructure.Name;
+        _tileImage.sprite = patternDefinitionScriptableObject.OutputDish.UISprite;
+        _name.text = patternDefinitionScriptableObject.OutputDish.Name;
     }
     
 }

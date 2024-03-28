@@ -17,19 +17,16 @@ public class SoulCollectionUI : MonoBehaviour
     void Start()
     {
         _panel.SetActive(false);
-        EventManager.Instance.OnMilestoneReached += ShowMilestoneReached;
         EventManager.Instance.OnGameOver += ShowGameOver;
     }
 
     private void OnDisable()
     {
-        EventManager.Instance.OnMilestoneReached -= ShowMilestoneReached;
         EventManager.Instance.OnGameOver -= ShowGameOver;
     }
     
     private void OnDestroy()
     {
-        EventManager.Instance.OnMilestoneReached -= ShowMilestoneReached;
         EventManager.Instance.OnGameOver -= ShowGameOver;
     }
     

@@ -13,7 +13,7 @@ public class OrderScript : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
 
 
-            _spriteRenderer.sortingOrder = -(int)(transform.position.z*100f);
+            _spriteRenderer.sortingOrder = -(int)(transform.position.z*100f)+sortingAddition;
 #if UNITY_EDITOR
         _spriteRenderer = GetComponent<SpriteRenderer>();
 #endif
@@ -23,7 +23,7 @@ public class OrderScript : MonoBehaviour
 
     public void Update()
     {
-        _spriteRenderer.sortingOrder = -(int)(transform.position.z*100f);
+        _spriteRenderer.sortingOrder = -(int)(transform.position.z*100f)+sortingAddition;
     }
 
 #endif

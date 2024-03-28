@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9389c273892f040819bcca7e126672da, type: 3}
+  m_Name: Gliq
+  m_EditorClassIdentifier: 
+  IsStructure: 0
+  Name: 
+  Description: 
+  UISprite: {fileID: 21300000, guid: abbed5565bf9b46c49c28e56f35eda88, type: 3}
+  SoulValue: 0
+  QuestBonusValue: 0
+  TilePrefab: {fileID: 240131842514954542, guid: aea6467d11219804f9e629e69ede6bc7,
+    type: 3}
+  UIColor: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 0}
+  QuestsThatCanBeSpawned: []

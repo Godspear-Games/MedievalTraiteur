@@ -134,6 +134,34 @@ public partial class @CameraControlActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Cooking Game"",
+            ""id"": ""6d7118cb-21b2-430d-9209-34304a2863ba"",
+            ""actions"": [
+                {
+                    ""name"": ""Mouse Position"",
+                    ""type"": ""Value"",
+                    ""id"": ""7a0a0470-17e3-4093-ac05-4e679c8dc5e7"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""b4a94946-fccd-4a83-bf95-1a0345086a27"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Mouse Position"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -143,6 +171,9 @@ public partial class @CameraControlActions: IInputActionCollection2, IDisposable
         m_Camera_Movement = m_Camera.FindAction("Movement", throwIfNotFound: true);
         m_Camera_RotateCamera = m_Camera.FindAction("RotateCamera", throwIfNotFound: true);
         m_Camera_ZoomCamera = m_Camera.FindAction("ZoomCamera", throwIfNotFound: true);
+        // Cooking Game
+        m_CookingGame = asset.FindActionMap("Cooking Game", throwIfNotFound: true);
+        m_CookingGame_MousePosition = m_CookingGame.FindAction("Mouse Position", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -262,10 +293,60 @@ public partial class @CameraControlActions: IInputActionCollection2, IDisposable
         }
     }
     public CameraActions @Camera => new CameraActions(this);
+
+    // Cooking Game
+    private readonly InputActionMap m_CookingGame;
+    private List<ICookingGameActions> m_CookingGameActionsCallbackInterfaces = new List<ICookingGameActions>();
+    private readonly InputAction m_CookingGame_MousePosition;
+    public struct CookingGameActions
+    {
+        private @CameraControlActions m_Wrapper;
+        public CookingGameActions(@CameraControlActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MousePosition => m_Wrapper.m_CookingGame_MousePosition;
+        public InputActionMap Get() { return m_Wrapper.m_CookingGame; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(CookingGameActions set) { return set.Get(); }
+        public void AddCallbacks(ICookingGameActions instance)
+        {
+            if (instance == null || m_Wrapper.m_CookingGameActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_CookingGameActionsCallbackInterfaces.Add(instance);
+            @MousePosition.started += instance.OnMousePosition;
+            @MousePosition.performed += instance.OnMousePosition;
+            @MousePosition.canceled += instance.OnMousePosition;
+        }
+
+        private void UnregisterCallbacks(ICookingGameActions instance)
+        {
+            @MousePosition.started -= instance.OnMousePosition;
+            @MousePosition.performed -= instance.OnMousePosition;
+            @MousePosition.canceled -= instance.OnMousePosition;
+        }
+
+        public void RemoveCallbacks(ICookingGameActions instance)
+        {
+            if (m_Wrapper.m_CookingGameActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(ICookingGameActions instance)
+        {
+            foreach (var item in m_Wrapper.m_CookingGameActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_CookingGameActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public CookingGameActions @CookingGame => new CookingGameActions(this);
     public interface ICameraActions
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnRotateCamera(InputAction.CallbackContext context);
         void OnZoomCamera(InputAction.CallbackContext context);
+    }
+    public interface ICookingGameActions
+    {
+        void OnMousePosition(InputAction.CallbackContext context);
     }
 }

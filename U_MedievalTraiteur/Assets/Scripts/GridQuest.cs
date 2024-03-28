@@ -12,8 +12,8 @@ public class GridQuest : MonoBehaviour
     
     public void SetQuestTile(PatternDefinitionScriptableObject patternDefinitionScriptableObject)
     {
-        _questTileType = patternDefinitionScriptableObject.OutputStructure;
-        _questTileImage.sprite = patternDefinitionScriptableObject.OutputStructure.UISprite;
+        _questTileType = patternDefinitionScriptableObject.OutputDish;
+        _questTileImage.sprite = patternDefinitionScriptableObject.OutputDish.UISprite;
         _questTileModel.localScale = Vector3.zero;
         _recipeDisplayUI.ShowRecipe(patternDefinitionScriptableObject);
         LeanTween.scale(_questTileModel.gameObject, Vector3.one, 0.25f).setEaseOutBack();
